@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
-import { ThemeProvider } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
 
 
@@ -10,6 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 
 import { outerTheme, ButtonStyles } from "../utils";
+import Paper from "@material-ui/core/Paper";
 
 import TitleBar from "../TitleBar";
 
@@ -26,9 +25,10 @@ const MedicalHistory = (props) => {
 
 
     return (
-      <ThemeProvider theme={outerTheme}>
         <>
         <TitleBar text="Medidal History" />
+        <Paper>
+
             {list.map((word, idx) => {
               return (
                 <FormControl component="fieldset" key={idx}>
@@ -67,8 +67,8 @@ const MedicalHistory = (props) => {
             >
               Continue
             </Button>
+            </Paper>
         </>
-      </ThemeProvider>
     );
   }
 

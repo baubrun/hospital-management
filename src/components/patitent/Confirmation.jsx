@@ -19,7 +19,6 @@ const Confirmation = (props) => {
 
 
     return (
-      <ThemeProvider theme={outerTheme}>
         <>
         <TitleBar text="Confirm" />
             <List>
@@ -58,7 +57,6 @@ const Confirmation = (props) => {
               Confirm & Continue
             </Button>
         </>
-      </ThemeProvider>
     );
   }
 

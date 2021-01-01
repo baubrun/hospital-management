@@ -1,13 +1,12 @@
 import React, { userEffect } from "react";
 
-import { ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { outerTheme, ButtonStyles } from "../utils";
+import {  ButtonStyles } from "../utils";
 import TitleBar from "../TitleBar";
 
 
@@ -26,7 +25,6 @@ const PatientForm = (props) => {
   } = props;
 
   return (
-    <ThemeProvider theme={outerTheme}>
       <>
         <TitleBar text="Patient Form" />
         <Grid container direction="row" justify="center" alignItems="center">
@@ -71,7 +69,6 @@ const PatientForm = (props) => {
           </Grid>
         </Grid>
       </>
-    </ThemeProvider>
   );
 };
 
