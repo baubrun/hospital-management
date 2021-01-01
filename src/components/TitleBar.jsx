@@ -7,9 +7,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         textAlign: "center",
         fontSize: "24px",
-        color: "#d1d1e0",
+        color: "#fff",
         textTransform: "uppercase",
-        fontWeight: "bolder"
+        fontWeight: "bolder",
+        letterSpacing: "2px"
     }
   }));
   

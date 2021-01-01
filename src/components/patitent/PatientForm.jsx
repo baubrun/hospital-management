@@ -26,7 +26,7 @@ const PatientForm = (props) => {
 
   return (
       <>
-        <TitleBar text="Patient Form" />
+        <TitleBar text="Patient information" />
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item>
             <Paper className={classes.paper}>

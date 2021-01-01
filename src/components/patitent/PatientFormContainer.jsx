@@ -5,8 +5,6 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Grid from "@material-ui/core/Grid";
 
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PatientStepContent from "./PatientStepContent";
@@ -19,7 +17,7 @@ const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam frin
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
-   margin: theme.spacing(2)
+   margin: theme.spacing(4)
   },
   step: {
     margin: "0 64px"
@@ -72,9 +70,9 @@ const PatientFormContainer = () => {
 
   return (
     <>
-      <Grid container direction="row" justify="center" alignItems="center">
+      <Grid className={classes.stepper} container direction="row" justify="center" alignItems="center">
         <Grid item>
-          <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
+          <Stepper  activeStep={activeStep} alternativeLabel>
             {steps.map((step, idx) => (
               <Step key={idx}>
                 <StepLabel className={classes.step}>{step}</StepLabel>
