@@ -1,8 +1,7 @@
-import React, { userEffect } from "react";
+import React, { useEffect } from "react";
 
 import PatientForm from "./PatientForm";
 import MedicalHistory from "./MedicalHistory";
-// import HospitalName from "./HospitalName";
 import Confirmation from "./Confirmation";
 import Success from "./Success";
 

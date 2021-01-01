@@ -1,37 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
 
 
-import Dialog from "@material-ui/core/Dialog";
-import AppBar from "@material-ui/core/AppBar";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { List, ListItem, ListItemText } from "@material-ui/core/";
 import Button from "@material-ui/core/Button";
+import TitleBar from "../TitleBar";
 
 
 
 import { outerTheme, ButtonStyles } from "../utils";
 
-export class Confirmatin extends Component {
-  continue = (evt) => {
-    evt.preventDefault();
-    // PROCESS FORM //
-    this.props.nextStep();
-  };
 
-  back = (evt) => {
-    evt.preventDefault();
-    this.props.prevStep();
-  };
+const Confirmation = (props) => {
 
-  render() {
     const {
       values: { firstName, lastName, email, occupation, city },
     } = this.props;
+
+
     return (
       <ThemeProvider theme={outerTheme}>
         <>
-          <Dialog open fullWidth maxWidth="sm">
-            <AppBar>Confirm User Data</AppBar>
+        <TitleBar text="Confirm" />
             <List>
               <ListItem>
                 <ListItemText primary="First Name" secondary={firstName} />
@@ -53,7 +43,7 @@ export class Confirmatin extends Component {
             <Button
               color="secondary"
               variant="contained"
-              onClick={this.back}
+              onClick={props.prevStep}
               style={ButtonStyles.button}
             >
               Back
@@ -62,16 +52,14 @@ export class Confirmatin extends Component {
             <Button
               color="primary"
               variant="contained"
-              onClick={this.continue}
               style={ButtonStyles.button}
+              type="submit"
             >
               Confirm & Continue
             </Button>
-          </Dialog>
         </>
       </ThemeProvider>
     );
   }
-}
 
-export default Confirmatin;
+export default Confirmation;

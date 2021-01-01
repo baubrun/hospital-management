@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
@@ -12,6 +11,7 @@ import FormControl from "@material-ui/core/FormControl";
 
 import { outerTheme, ButtonStyles } from "../utils";
 
+import TitleBar from "../TitleBar";
 
 
 
@@ -21,22 +21,14 @@ const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam frin
 
 const labelPlacement = "end";
 
-class MedicalHistory extends Component {
-  continue = (evt) => {
-    evt.preventDefault();
-    this.props.nextStep();
-  };
+const MedicalHistory = (props) => {
+ 
 
-  back = (evt) => {
-    evt.preventDefault();
-    this.props.prevStep();
-  };
-  render() {
+
     return (
       <ThemeProvider theme={outerTheme}>
         <>
-          <Dialog open fullWidth maxWidth="sm">
-            <AppBar>Medical History</AppBar>
+        <TitleBar text="Medidal History" />
             {list.map((word, idx) => {
               return (
                 <FormControl component="fieldset" key={idx}>
@@ -46,7 +38,7 @@ class MedicalHistory extends Component {
                       control={
                         <Checkbox
                           color="primary"
-                          onChange={this.props.handleCheckbox}
+                          onChange={props.handleCheckbox}
                           name={word}
                         />
                       }
@@ -61,7 +53,7 @@ class MedicalHistory extends Component {
             <Button
               color="secondary"
               variant="contained"
-              onClick={this.back}
+              onClick={props.prevStep}
               style={ButtonStyles.button}
             >
               Back
@@ -70,15 +62,17 @@ class MedicalHistory extends Component {
             <Button
               color="primary"
               variant="contained"
-              onClick={this.continue}
+              onClick={props.nextStep}
               style={ButtonStyles.button}
             >
               Continue
             </Button>
-          </Dialog>
         </>
       </ThemeProvider>
     );
   }
-}
+
+
+
+
 export default MedicalHistory;
