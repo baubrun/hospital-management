@@ -1,25 +1,33 @@
 import React from "react";
 
 
-import { ThemeProvider } from "@material-ui/core/styles";
 import { List, ListItem, ListItemText } from "@material-ui/core/";
 import Button from "@material-ui/core/Button";
 import TitleBar from "../TitleBar";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import { ButtonStyles } from "../utils";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    elevation: 15,
+    padding: theme.spacing(3)
+  }
+}));
 
 
-
-import { outerTheme, ButtonStyles } from "../utils";
 
 
 const Confirmation = (props) => {
+  const classes = useStyles()
 
     const {
       values: { firstName, lastName, email, occupation, city },
-    } = this.props;
+    } = props;
 
 
     return (
-        <>
+        <Paper className={classes.paper}>
         <TitleBar text="Confirm" />
             <List>
               <ListItem>
@@ -56,7 +64,7 @@ const Confirmation = (props) => {
             >
               Confirm & Continue
             </Button>
-        </>
+        </Paper>
     );
   }
 

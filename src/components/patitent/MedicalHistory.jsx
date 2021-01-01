@@ -1,18 +1,17 @@
 import React, { Component } from "react";
 import { Button } from "@material-ui/core";
 
-
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 
-import { outerTheme, ButtonStyles } from "../utils";
+import { ButtonStyles } from "../utils";
 import Paper from "@material-ui/core/Paper";
 
 import TitleBar from "../TitleBar";
-
-
 
 const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
   " "
@@ -20,17 +19,28 @@ const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam frin
 
 const labelPlacement = "end";
 
+
+const useStyles = makeStyles((theme) => ({
+  paper:{
+    padding: theme.spacing(4)
+  }
+
+}));
+
+
+
 const MedicalHistory = (props) => {
- 
+  const classes = useStyles()
+  return (
+    <>
+      <TitleBar text="Medidal History" />
 
-
-    return (
-        <>
-        <TitleBar text="Medidal History" />
-        <Paper>
-
+      <Grid container direction="column" justify="center" alignItems="center">
+        {/* <Grid item> */}
+          <Paper className={classes.paper}>
             {list.map((word, idx) => {
               return (
+                <Grid item>
                 <FormControl component="fieldset" key={idx}>
                   <FormGroup aria-label="position" row>
                     <FormControlLabel
@@ -47,6 +57,7 @@ const MedicalHistory = (props) => {
                     />
                   </FormGroup>
                 </FormControl>
+                </Grid>
               );
             })}
 
@@ -68,11 +79,11 @@ const MedicalHistory = (props) => {
               Continue
             </Button>
             </Paper>
-        </>
-    );
-  }
 
-
-
+          {/* </Grid> */}
+        </Grid>
+    </>
+  );
+};
 
 export default MedicalHistory;

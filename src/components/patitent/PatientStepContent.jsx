@@ -4,21 +4,13 @@ import PatientForm from "./PatientForm";
 import MedicalHistory from "./MedicalHistory";
 import Confirmation from "./Confirmation";
 import Success from "./Success";
-import { makeStyles } from "@material-ui/core/styles";
 
 
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    elevation: 15,
-    padding: theme.spacing(3)
-  }
-}));
 
 
 
 const PatientStepContent = (props) => {
-  const classes = useStyles()
 
   switch (props.stepIndex) {
     case 0:
@@ -46,7 +38,9 @@ const PatientStepContent = (props) => {
         <Confirmation 
         nextStep={props.nextStep} 
         prevStep={props.prevStep} 
-        values={props.values} />
+        values={props.values} 
+        />
+
       );
     case 3:
       return <Success />;
