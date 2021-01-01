@@ -3,11 +3,17 @@ import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
-import { outerTheme, ButtonStyles } from "./utils";
+
+
 import Checkbox from "@material-ui/core/Checkbox";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
+
+import { outerTheme, ButtonStyles } from "../utils";
+
+
+
 
 const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
   " "

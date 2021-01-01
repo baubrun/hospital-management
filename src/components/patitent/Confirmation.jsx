@@ -1,10 +1,15 @@
 import React, { Component } from "react";
+
+
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { List, ListItem, ListItemText } from "@material-ui/core/";
 import Button from "@material-ui/core/Button";
-import { outerTheme, ButtonStyles } from "./utils";
+
+
+
+import { outerTheme, ButtonStyles } from "../utils";
 
 export class Confirmatin extends Component {
   continue = (evt) => {

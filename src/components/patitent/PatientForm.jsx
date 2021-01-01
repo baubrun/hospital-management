@@ -1,27 +1,36 @@
-import React, { Component } from "react";
+import React, { userEffect } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import AppBar from "@material-ui/core/AppBar";
 import { ThemeProvider } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
-import {outerTheme, ButtonStyles} from "./utils";
+import {outerTheme, ButtonStyles} from "../utils";
 
 
 
-export class PatientForm extends Component {
-  continue = (evt) => {
-    evt.preventDefault();
-    this.props.nextStep();
-  };
+const PatientForm = (props) => {
+  // continue = (evt) => {
+  //   evt.preventDefault();
+  //   this.props.nextStep();
+  // };
 
-  back = (evt) => {
-    evt.preventDefault();
-    this.props.prevStep();
-  };
-  render() {
+  // back = (evt) => {
+  //   evt.preventDefault();
+  //   this.props.prevStep();
+  // };
+  
+
+  // useEffect(() => {
+  //   effect
+  //   return () => {
+  //     cleanup
+  //   }
+  // }, [input])
+
+
     const {
         values: { firstName, lastName, email },
-      } = this.props;
+      } = props;
   
     return (
       <ThemeProvider theme={outerTheme}>
@@ -31,26 +40,29 @@ export class PatientForm extends Component {
             <TextField
               label="First Name"
               defaultValue={firstName}
-              onChange={this.props.handleChange("firstName")}
+              name="firstName"
+              onChange={(evt) =>props.handleChange(evt)}
               placeholder="First Name"
               margin="normal"
               fullWidth
             />
             <br />
             <TextField
-              placeholder="Enter Your Last Name"
               label="Last Name"
-              onChange={this.props.handleChange("lastName")}
               defaultValue={lastName}
+              name="lastname"
+              onChange={(evt) =>props.handleChange(evt)}
+              placeholder="Last Name"
               margin="normal"
               fullWidth
             />
             <br />
             <TextField
-              placeholder="Enter Your Email"
               label="Email"
-              onChange={this.props.handleChange("email")}
               defaultValue={email}
+              name=""
+              onChange={(evt) =>props.handleChange(evt)}
+              placeholder="Email"
               margin="normal"
               fullWidth
             />
@@ -68,5 +80,7 @@ export class PatientForm extends Component {
       </ThemeProvider>
     );
   }
-}
+
+
+
 export default PatientForm;

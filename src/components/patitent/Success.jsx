@@ -1,5 +1,5 @@
 import React from 'react'
-import {outerTheme} from "./utils"
+import {outerTheme} from "../utils"
 
 const Success = () => {
     return (
