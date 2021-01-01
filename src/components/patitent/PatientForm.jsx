@@ -69,7 +69,7 @@ const PatientForm = (props) => {
             <br />
             <Button
               color="primary"
-              onClick={this.continue}
+              onClick={props.nextStep}
               style={ButtonStyles.button}
               variant="contained"
             >

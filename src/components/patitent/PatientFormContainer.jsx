@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
-import PatientStepContent from './PatientStepContent';
+import PatientStepContent from "./PatientStepContent";
 
 const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
   " "
@@ -24,9 +24,7 @@ list.forEach((w) => {
   defaultState[w] = false;
 });
 
-
-const steps = ["name", "medical history", "confirmation"]
-
+const steps = ["Patient Information", "Medical history", "Confirm"];
 
 const PatientFormContainer = () => {
   const [values, setValues] = useState(defaultState);
@@ -42,35 +40,33 @@ const PatientFormContainer = () => {
 
   const handleChange = (input) => (evt) => {
     const { value } = evt.target;
-    setValues({...values, [input]: value });
+    setValues({ ...values, [input]: value });
   };
 
   const handleCheckbox = (evt) => {
     const { checked, name } = evt.target;
-    setValues({...values, [name]: checked });
+    setValues({ ...values, [name]: checked });
   };
 
   return (
     <>
-    <Stepper activeStep={activeStep} alternativeLabel>
-        {steps.map((label, idx) => (
+      <Stepper activeStep={activeStep} alternativeLabel>
+        {steps.map((step, idx) => (
           <Step key={idx}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel>{step}</StepLabel>
             <PatientStepContent
-            nextStep={nextStep}
-            prevStep={prevStep}
-            handleChange={handleChange}
-            handleCheckbox={handleCheckbox}
-            values={values}
+              nextStep={nextStep}
+              prevStep={prevStep}
+              handleChange={handleChange}
+              handleCheckbox={handleCheckbox}
+              stepIndex={activeStep}
+              values={values}
             />
           </Step>
         ))}
-
       </Stepper>
     </>
-  )
-}
-
-
+  );
+};
 
 export default PatientFormContainer;

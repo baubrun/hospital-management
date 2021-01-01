@@ -14,10 +14,11 @@ const PatientStepContent = (props) => {
     case 0:
       return (
         <PatientForm
-          nextStep={() => props.nextStep()}
-          handleChange={() => props.handleChange()}
+          nextStep={props.nextStep}
+          handleChange={props.handleChange}
           values={props.values}
         />
+
       );
     case 1:
       return (
@@ -30,24 +31,14 @@ const PatientStepContent = (props) => {
         />
       );
 
-    // case 2:
-    //   return (
-    //     <HospitalName
-    //       nextStep={this.nextStep}
-    //       prevStep={this.prevStep}
-    //       handleChange={this.handleChange}
-    //       values={values}
-    //     />
-    //   );
-
-    case 3:
+    case 2:
       return (
         <Confirmation 
         nextStep={props.nextStep} 
         prevStep={props.prevStep} 
         values={props.values} />
       );
-    case 4:
+    case 3:
       return <Success />;
     default:
       return null;
