@@ -1,5 +1,7 @@
 
 const db = require("../db");
+const bcrypt = require("bcryptjs")
+const {SALT} = require("../config")
 
 const create = async (req, res) => {
     const {
@@ -11,16 +13,18 @@ const create = async (req, res) => {
       occupation,
     } = req.body;
   
-    const text = "INSERT INTO users(user_name, first_name, last_name, password, email)";
-    const values = "VALUES($1, $2, $3, $4, $5, $6)";
-    const returning = "RETURNING id, user_name, access_level, occupation";
+    const text = "INSERT INTO users(user_name, first_name, last_name, password, email, occupation)";
+    const values = "VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT ON CONFLICT (email OR user_name)";
+    const returning = "RETURNING id, first_name, last_name, occupation";
   
+    const hashedPassword = await bcrypt.hash(password, SALT)
+
     try {
       const user = await db.query(`${text} ${values} ${returning}`, [
         user_name,
         first_name,
         last_name,
-        password,
+        hashedPassword,
         email,
         occupation,
         ]);
