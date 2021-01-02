@@ -33,7 +33,7 @@ const MedicalHistory = (props) => {
   const classes = useStyles()
   return (
     <>
-      <TitleBar text="Medidal History" />
+      <TitleBar text="Medical History" />
 
       <Grid container direction="column" justify="center" alignItems="center">
         {/* <Grid item> */}

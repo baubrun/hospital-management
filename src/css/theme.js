@@ -8,7 +8,7 @@ import {
 export const theme = createMuiTheme({
     palette: {
         primary: {
-            main: "#ce93d8",
+            main: "#b256c2",
         },
         secondary: {
             main: "#c51162",
