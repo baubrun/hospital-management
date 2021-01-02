@@ -13,9 +13,13 @@ import MailIcon from "@material-ui/icons/Mail";
 import { navItems } from "./navItems";
 
 
-const NavMenu = () => {
+const NavMenu = (props) => {
   return (
     <>
+    <Drawer 
+    open={props.open}
+    onClose={() => props.close(false)}
+    >
       {navItems.map((item, idx) => {
         return (
             <>
@@ -31,6 +35,7 @@ const NavMenu = () => {
           </>
         );
       })}
+      </Drawer>
     </>
   );
 };

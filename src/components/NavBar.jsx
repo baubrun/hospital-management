@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 
+import NavMenu from "./navMenu/NavMenu"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,14 +23,9 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [openMenu, setOpenMenu] = useState(false);
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleClose = () => {};
 
   return (
     <>
@@ -39,13 +35,12 @@ const NavBar = () => {
             edge="start"
             className={classes.menuButton}
             color="inherit"
-            aria-label="menu"
+            onClick={() => setOpenMenu(true)}
           >
             <MenuIcon />
           </IconButton>
-         
-          
         </Toolbar>
+        <NavMenu open={openMenu} close={setOpenMenu}/>
       </AppBar>
       <div className={classes.offset} />
     </>
