@@ -5,14 +5,12 @@ const db = require("../db");
 
 const list = async (req, res) => {
     try {
-      const text = `SELECT * from rooms RETURNING *`;
   
       const rooms = await db.query(
-        text,
-        [rooms]
+        `SELECT * from rooms`
       );
       return res.status(200).json({
-        rooms: rooms.rows[0],
+        rooms: rooms.rows,
       });
     } catch (error) {
       return res.status(500).json({
