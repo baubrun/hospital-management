@@ -9,7 +9,9 @@ import PatientFormContainer from "./components/patitent/PatientFormContainer";
 import NotFound from "./views/NotFound";
 import Rooms from "./components/rooms/Rooms"
 
+import NavBar from "./components/NavBar"
 import { listRooms } from "./redux/roomsSlice";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <NavBar />
         <Switch>
         <Route exact={true} path="/" component={PatientFormContainer} />
         <Route exact={true} path="/rooms" component={Rooms}/>

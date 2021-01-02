@@ -9,7 +9,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import {  ButtonStyles } from "../utils";
 import TitleBar from "../TitleBar";
 
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     elevation: 15,
@@ -26,7 +25,6 @@ const PatientForm = (props) => {
 
   return (
       <>
-        <TitleBar text="Patient information" />
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item>
             <Paper className={classes.paper}>
