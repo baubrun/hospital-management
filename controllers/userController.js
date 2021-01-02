@@ -14,7 +14,7 @@ const create = async (req, res) => {
     } = req.body;
   
     const text = "INSERT INTO users(user_name, first_name, last_name, password, email, occupation)";
-    const values = "VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT ON CONFLICT (email OR user_name)";
+    const values = "VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (email OR user_name) DO NOTHING";
     const returning = "RETURNING id, first_name, last_name, occupation";
   
     const hashedPassword = await bcrypt.hash(password, SALT)
