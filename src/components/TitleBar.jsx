@@ -10,7 +10,8 @@ const useStyles = makeStyles((theme) => ({
         color: "#fff",
         textTransform: "uppercase",
         fontWeight: "bolder",
-        letterSpacing: "2px"
+        letterSpacing: "2px",
+        position: "relative",
     }
   }));
   

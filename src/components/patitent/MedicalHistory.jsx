@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ButtonStyles } from "../utils";
 import Paper from "@material-ui/core/Paper";
 
-import TitleBar from "../TitleBar";
 
 const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
   " "
@@ -33,7 +32,6 @@ const MedicalHistory = (props) => {
   const classes = useStyles()
   return (
     <>
-      <TitleBar text="Medical History" />
 
       <Grid container direction="column" justify="center" alignItems="center">
         {/* <Grid item> */}

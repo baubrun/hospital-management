@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PatientStepContent from "./PatientStepContent";
+import TitleBar from "../TitleBar";
 
 const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
   " "
@@ -17,7 +18,7 @@ const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam frin
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
-  //  margin: theme.spacing(4)
+   margin: `${theme.spacing(2)}px 0px`
   },
   step: {
     margin: "0 64px"
@@ -70,6 +71,10 @@ const PatientFormContainer = () => {
 
   return (
     <>
+          <Grid item>
+          <TitleBar text="patient information"/>
+        </Grid>
+
       <Grid className={classes.stepper} container direction="row" justify="center" alignItems="center">
         <Grid item>
           <Stepper  activeStep={activeStep} alternativeLabel>
@@ -83,6 +88,7 @@ const PatientFormContainer = () => {
       </Grid>
 
       <Grid container direction="row" justify="center" alignItems="center">
+
         <Grid item>
           <form onSubmit={handleSubmit}>
             <PatientStepContent
