@@ -6,7 +6,7 @@ const roomController = require("../controllers/roomController")
 
 
 
-router.route("/rooms")
+router.route("/api/rooms")
     .get(
         roomController.list
     )

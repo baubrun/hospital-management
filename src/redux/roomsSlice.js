@@ -8,11 +8,12 @@ import {
 } from "../utils";
 
 
-export const checkIn = createAsyncThunk(
-    "/room/checkIn",
-    async (data) => {
+export const listRooms = createAsyncThunk(
+    "/rooms",
+    async () => {
         try {
-            const res = await axios.post(`${domain}/room/{roomId}/checkin`, data);
+            const res = await axios.get(
+                `${domain}/api/rooms`);
             return res.data;
         } catch (error) {
             return {
@@ -22,11 +23,27 @@ export const checkIn = createAsyncThunk(
     });
 
 
-export const checkOut = createAsyncThunk(
+export const checkedIn = createAsyncThunk(
+    "/room/checkIn",
+    async (data) => {
+        try {
+            const res = await axios.post(
+                `${domain}/api/rooms/${data.roomId}/checkin`, data);
+            return res.data;
+        } catch (error) {
+            return {
+                error: error.response.data.error
+            };
+        }
+    });
+
+
+export const checkedOut = createAsyncThunk(
     "/room/checkOut",
     async (data) => {
         try {
-            const res = await axios.post(`${domain}/room/{roomId}/checkout`, data);
+            const res = await axios.post(
+                `${domain}/room/${data.roomId}/checkout`, data);
             return res.data;
         } catch (error) {
             return {
@@ -81,6 +98,26 @@ export const roomsSlice = createSlice({
             }
         },
         [checkedOut.rejected]: (state, action) => {
+            state.loading = false
+            state.error = action.payload.error;
+        },
+
+
+        [listRooms.pending]: (state) => {
+            state.loading = true
+        },
+        [listRooms.fulfilled]: (state, action) => {
+            state.loading = false
+            const {
+                error, rooms
+            } = action.payload;
+            if (error) {
+                state.error = error;
+            } else {
+                state.rooms = rooms;
+            }
+        },
+        [listRooms.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.error;
         },

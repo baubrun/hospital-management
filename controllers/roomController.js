@@ -4,9 +4,8 @@ const db = require("../db");
 
 
 const list = async (req, res) => {
-  
     try {
-      const text = `SELECT * from rooms ,`;
+      const text = `SELECT * from rooms RETURNING *`;
   
       const rooms = await db.query(
         text,
