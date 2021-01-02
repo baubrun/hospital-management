@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -9,18 +9,18 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-      backgroundColor: theme.palette.secondary.main
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  }));
-
+  root: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+  offset: theme.mixins.toolbar,
+}));
 
 const NavBar = () => {
   const classes = useStyles();
@@ -34,21 +34,21 @@ const NavBar = () => {
   const handleClose = () => {};
 
   return (
-    <AppBar className={classes.root} position="static">
-      <Toolbar>
-        <IconButton
-          edge="start"
-          className={classes.menuButton}
-          color="inherit"
-          aria-label="menu"
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" className={classes.title}>
-          Photos
-        </Typography>
+    <>
+      <AppBar className={classes.root} position="static">
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Photos
+          </Typography>
           <div>
-        
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -68,8 +68,10 @@ const NavBar = () => {
               <MenuItem onClick={handleClose}>My account</MenuItem>
             </Menu>
           </div>
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+      <div className={classes.offset} />
+    </>
   );
 };
 

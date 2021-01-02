@@ -17,7 +17,7 @@ const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam frin
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
-   margin: theme.spacing(4)
+  //  margin: theme.spacing(4)
   },
   step: {
     margin: "0 64px"
