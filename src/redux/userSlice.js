@@ -3,9 +3,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { domain } from "../utils";
 
 
-export const register = createAsyncThunk("/user", async (data) => {
+export const createUser = createAsyncThunk(
+  "/user/create", 
+async (data) => {
   try {
-    const res = await axios.post(domain + "/register", data);
+    const res = await axios.post(`${domain}/user`, data);
     return res.data;
   } catch (error) {
     return {
@@ -14,9 +16,12 @@ export const register = createAsyncThunk("/user", async (data) => {
   }
 });
 
-export const logIn = createAsyncThunk("/login", async (data) => {
+
+export const readUser = createAsyncThunk(
+  "/user/read", 
+  async (data) => {
   try {
-    const res = await axios.post(domain + "/login", data);
+    const res = await axios.post(`${domain}/user`, data);
     return res.data;
   } catch (error) {
     return {
@@ -24,6 +29,7 @@ export const logIn = createAsyncThunk("/login", async (data) => {
     };
   }
 });
+
 
 export const userSlice = createSlice({
   name: "user",
@@ -39,32 +45,43 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: {
-    [register.fulfilled]: (state, action) => {
+    [createUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [createUser.fulfilled]: (state, action) => {
+      state.loading = false;
       const { error, user } = action.payload;
       if (error) {
         state.error = error;
       } else {
         state.loggedIn = true;
         state.user = user;
-        state.error = "";
       }
     },
-    [register.rejected]: (state, action) => {
+    [createUser.rejected]: (state, action) => {
+      state.loading = false;
       state.error = action.payload.error;
     },
 
-    [logIn.rejected]: (state, action) => {
-      state.error = action.payload.error;
+
+    [readUser.pending]: (state) => {
+      state.loading = true;
     },
-    [logIn.fulfilled]: (state, action) => {
-      const { error } = action.payload;
+    [readUser.fulfilled]: (state, action) => {
+      state.loading = false;
+      const { error, user } = action.payload;
       if (error) {
         state.error = error;
       } else {
         state.loggedIn = true;
-        state.error = "";
+        state.user = user;
       }
     },
+    [readUser.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.error;
+    },
+
   },
 });
 
