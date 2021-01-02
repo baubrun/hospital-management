@@ -3,13 +3,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { domain } from "../utils";
 
 
-export const register = createAsyncThunk("/register", async (data) => {
+export const register = createAsyncThunk("/user", async (data) => {
   try {
     const res = await axios.post(domain + "/register", data);
     return res.data;
   } catch (error) {
     return {
-      error: error.response.data.error,
+      error: error.response.data.error
     };
   }
 });
@@ -20,7 +20,7 @@ export const logIn = createAsyncThunk("/login", async (data) => {
     return res.data;
   } catch (error) {
     return {
-      error: error.response.data.error,
+      error: error.response.data.error
     };
   }
 });
@@ -29,23 +29,23 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     loggedIn: false,
-    hostId: "",
     error: "",
+    user: {},
   },
   reducers: {
     logOut: (state) => {
       state.loggedIn = false;
-      state.hostId = "";
+      state.user = {};
     },
   },
   extraReducers: {
     [register.fulfilled]: (state, action) => {
-      const { error, hostId } = action.payload;
+      const { error, user } = action.payload;
       if (error) {
         state.error = error;
       } else {
         state.loggedIn = true;
-        state.hostId = hostId;
+        state.user = user;
         state.error = "";
       }
     },
@@ -57,12 +57,11 @@ export const userSlice = createSlice({
       state.error = action.payload.error;
     },
     [logIn.fulfilled]: (state, action) => {
-      const { error, hostId } = action.payload;
+      const { error } = action.payload;
       if (error) {
         state.error = error;
       } else {
         state.loggedIn = true;
-        state.hostId = hostId;
         state.error = "";
       }
     },

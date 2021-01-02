@@ -3,10 +3,10 @@ const config = require("../config")
 
 
 const pool = new Pool({
-    connectionString: config.db_uri
+    connectionString: config.DB_URI
 })
 
 
 module.exports = {
-    query: (text, params) => pool.query(text, params)
+    query: (text, params) => pool.query(text, params),
 }
