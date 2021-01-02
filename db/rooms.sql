@@ -1,4 +1,4 @@
-create table rooms (
+create table IF NOT EXISTS rooms (
 	room_number SERIAL PRIMARY KEY,
 	short_stay BOOLEAN NOT NULL,
 	long_stay BOOLEAN NOT NULL,
