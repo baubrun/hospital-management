@@ -22,7 +22,7 @@ const Confirmation = (props) => {
   const classes = useStyles()
 
     const {
-      values: { firstName, lastName, email, occupation, city },
+      values: { firstName, lastName, email, occupation, city }
     } = props;
 
 
