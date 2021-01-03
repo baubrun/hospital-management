@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -37,6 +38,7 @@ medicalConditions.forEach((condition) => {
 const steps = ["Patient Information", "Medical history", "Confirm"];
 
 const PatientFormContainer = () => {
+  const dispatch = useDispatch();
   const classes = useStyles()
   const [values, setValues] = useState(defaultState);
   const [activeStep, setActiveStep] = useState(0);
@@ -61,7 +63,7 @@ const PatientFormContainer = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    console.log("values :>>", values);
+    dispatch()
     setValues(defaultState)
     nextStep()
   };

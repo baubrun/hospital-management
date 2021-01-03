@@ -23,12 +23,12 @@ export const listRooms = createAsyncThunk(
     });
 
 
-export const checkedIn = createAsyncThunk(
-    "/room/checkIn",
+export const admission = createAsyncThunk(
+    "/rooms/room_id/admission",
     async (data) => {
         try {
             const res = await axios.post(
-                `${domain}/api/rooms/${data.roomId}/checkin`, data);
+                `${domain}/api/rooms/${data.room_id}/admission`, data);
             return res.data;
         } catch (error) {
             return {
@@ -38,12 +38,12 @@ export const checkedIn = createAsyncThunk(
     });
 
 
-export const checkedOut = createAsyncThunk(
-    "/room/checkOut",
-    async (data) => {
+export const discharge = createAsyncThunk(
+    "/rooms/room_id/discharge",
+    async (room_id) => {
         try {
             const res = await axios.post(
-                `${domain}/room/${data.roomId}/checkout`, data);
+                `${domain}/api/rooms/${room_id}/discharge`);
             return res.data;
         } catch (error) {
             return {
@@ -53,20 +53,20 @@ export const checkedOut = createAsyncThunk(
     });
 
 
-export const roomsSlice = createSlice({
+export const roomSlice = createSlice({
     name: "rooms",
     initialState: {
-        checkedIn: false,
+        admission: false,
         error: "",
         loading: false,
         rooms: [],
     },
     reducers: {},
     extraReducers: {
-        [checkedIn.pending]: (state) => {
+        [admission.pending]: (state) => {
             state.loading = true
         },
-        [checkedIn.fulfilled]: (state, action) => {
+        [admission.fulfilled]: (state, action) => {
             state.loading = false
             const {
                 error,
@@ -74,19 +74,19 @@ export const roomsSlice = createSlice({
             if (error) {
                 state.error = error;
             } else {
-                state.checkedIn = true;
+                state.admission = true;
             }
         },
-        [checkedIn.rejected]: (state, action) => {
+        [admission.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.error;
         },
 
 
-        [checkedOut.pending]: (state) => {
+        [discharge.pending]: (state) => {
             state.loading = true
         },
-        [checkedOut.fulfilled]: (state, action) => {
+        [discharge.fulfilled]: (state, action) => {
             state.loading = false
             const {
                 error
@@ -94,10 +94,10 @@ export const roomsSlice = createSlice({
             if (error) {
                 state.error = error;
             } else {
-                state.checkedIn = false;
+                state.admission = false;
             }
         },
-        [checkedOut.rejected]: (state, action) => {
+        [discharge.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.error;
         },
@@ -125,4 +125,4 @@ export const roomsSlice = createSlice({
 });
 
 export const roomState = (state) => state.rooms;
-export default roomsSlice.reducer;
+export default roomSlice.reducer;

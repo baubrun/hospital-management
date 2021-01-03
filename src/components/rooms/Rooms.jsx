@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import TitleBar from "../TitleBar";
 
-import { roomState, listRooms } from "../../redux/roomsSlice";
+import { roomState, listRooms } from "../../redux/roomSlice";
 import Spinner from "../Spinner";
 import { Circle } from "react-shapes";
 
