@@ -10,8 +10,9 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import PatientStepContent from "./PatientStepContent";
 import TitleBar from "../TitleBar";
-
 import {medicalConditions} from "../../utils"
+
+import {createPatient} from "../../redux/patientSlice"
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
@@ -63,7 +64,8 @@ const PatientFormContainer = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch()
+    
+    dispatch(createPatient())
     setValues(defaultState)
     nextStep()
   };
