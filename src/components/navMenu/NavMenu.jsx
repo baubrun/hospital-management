@@ -2,22 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { navItems } from "./navItems";
 
 const useStyles = makeStyles((theme) => ({
+    divider: {
+        backgroundColor: theme.palette.primary.main
+    },
   links: {
     textDecoration: "none",
+
   },
+  listItem: {
+      display: "flex",
+      color: theme.palette.primary.main
+  }
 }));
 
 const NavMenu = (props) => {
@@ -26,21 +32,27 @@ const NavMenu = (props) => {
   return (
     <>
       <Drawer open={props.open} onClose={() => props.close(false)}>
+      <List >
         {navItems.map((item, idx) => {
           return (
-            <React.Fragment key={idx}>
-              <List >
-                <ListItem>
+            <React.Fragment>
+             
+                <ListItem   key={idx}>
                   <Link to="/rooms" className={classes.links}>
-                    <ListItemIcon color={item.color}>{item.icon}</ListItemIcon>
+                      <Box className={classes.listItem}>
+                      <ListItemIcon color={item.color}>{item.icon}</ListItemIcon>
+                    <ListItemText primary={item.name}/>
+
+                      </Box>
                   </Link>
-                  <ListItemText primary={item.name}/>
+                 
                 </ListItem>
-              </List>
-              <Divider />
+             
+              <Divider className={classes.divider}/>
             </React.Fragment>
           );
         })}
+         </List>
       </Drawer>
     </>
   );
