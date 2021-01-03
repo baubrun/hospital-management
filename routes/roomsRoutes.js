@@ -12,6 +12,17 @@ router.route("/api/rooms")
     )
 
 
+router.route("/api/rooms/:room_id/admission")
+    .post(
+        roomController.admission
+    )
+
+router.route("/api/rooms/:room_id/discharge")
+    .post(
+        roomController.discharge
+    )
+
+
 
 
 
