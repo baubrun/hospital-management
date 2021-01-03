@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PatientStepContent from "./PatientStepContent";
 import TitleBar from "../TitleBar";
 
-import {medicalConditions} from "../utils"
+import {medicalConditions} from "../../utils"
 
 const useStyles = makeStyles((theme) => ({
   stepper: {

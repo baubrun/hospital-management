@@ -16,3 +16,8 @@ export const theme = createMuiTheme({
     },
 });
 
+export const ButtonStyles = {
+    button: {
+      margin: "10px",
+    },
+  };
