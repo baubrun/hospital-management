@@ -7,6 +7,7 @@ export const navItems = [
     {
     name: "Rooms",
     icon: <GridOnIcon />,
+    color: "3c51162"
     }, 
 
 ]
