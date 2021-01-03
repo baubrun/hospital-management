@@ -21,7 +21,7 @@ const Confirmation = (props) => {
   const classes = useStyles()
 
     const {
-      values: { firstName, lastName, email, occupation, city }
+      values: { firstName, lastName, email }
     } = props;
 
 
@@ -37,18 +37,12 @@ const Confirmation = (props) => {
               <ListItem>
                 <ListItemText primary="Email" secondary={email} />
               </ListItem>
-              <ListItem>
-                <ListItemText primary="Occupation" secondary={occupation} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="City" secondary={city} />
-              </ListItem>
             </List>
             <br />
             <Button
               color="secondary"
               variant="contained"
-              onClick={props.prevStep}
+              onClick={() => props.prevStep()}
               style={ButtonStyles.button}
             >
               Back

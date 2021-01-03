@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 const defaultState = {
-  city: "",
   email: "",
   firstName: "",
   lastName: "",
