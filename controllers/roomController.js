@@ -25,7 +25,8 @@ const list = async (req, res) => {
     const {occupant_id, room_number, occupied} = req.body
 
     try {
-      const text = `UPDATE rooms SET occupant_id = $2, occupied = $3 WHERE room_number = $1`
+      const text = 
+      `UPDATE rooms SET occupant_id = $2, occupied = $3 WHERE room_number = $1 AND occupied != $3`
       const returning = "RETURNING room_number, short_stay, long_stay, occupied, occupant_id"
       
         const rooms = await db.query(
