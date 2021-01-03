@@ -2,14 +2,16 @@ const express = require("express")
 const cors = require("cors")
 const app = express()
 const config = require("./config")
-const roomsRoutes = require("./routes/roomsRoutes")
+const roomRoutes = require("./routes/roomRoutes")
+const patientRoutes = require("./routes/patientRoutes")
 
 app.use(express.json())
 app.use(cors())
 
 app.use("/", express.static("build"))
 
-app.use("/", roomsRoutes)
+app.use("/", roomRoutes)
+app.use("/", patientRoutes)
 
 
 
