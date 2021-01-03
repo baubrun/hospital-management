@@ -9,7 +9,7 @@ import {
 
 
 export const listRooms = createAsyncThunk(
-    "/rooms",
+    "api/rooms/list",
     async () => {
         try {
             const res = await axios.get(
@@ -23,12 +23,12 @@ export const listRooms = createAsyncThunk(
     });
 
 
-export const admission = createAsyncThunk(
-    "/rooms/room_id/admission",
+export const roomAdmission = createAsyncThunk(
+    "api/rooms/room_id/admission",
     async (data) => {
         try {
             const res = await axios.post(
-                `${domain}/api/rooms/${data.room_id}/admission`, data);
+                `${domain}/api/rooms/${data.room_id}/admission`, data.occupant_id);
             return res.data;
         } catch (error) {
             return {
@@ -39,11 +39,11 @@ export const admission = createAsyncThunk(
 
 
 export const discharge = createAsyncThunk(
-    "/rooms/room_id/discharge",
+    "api/rooms/room_id/discharge",
     async (room_id) => {
         try {
             const res = await axios.post(
-                `${domain}/api/rooms/${room_id}/discharge`);
+                `${domain}/api/rooms/${room_id}/discharge`, null);
             return res.data;
         } catch (error) {
             return {
@@ -63,10 +63,10 @@ export const roomSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
-        [admission.pending]: (state) => {
+        [roomAdmission.pending]: (state) => {
             state.loading = true
         },
-        [admission.fulfilled]: (state, action) => {
+        [roomAdmission.fulfilled]: (state, action) => {
             state.loading = false
             const {
                 error,
@@ -77,7 +77,7 @@ export const roomSlice = createSlice({
                 state.admission = true;
             }
         },
-        [admission.rejected]: (state, action) => {
+        [roomAdmission.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.error;
         },
