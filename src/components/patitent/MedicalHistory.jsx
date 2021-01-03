@@ -32,21 +32,21 @@ const MedicalHistory = (props) => {
 
       <Grid container direction="column" justify="center" alignItems="center">
           <Paper className={classes.paper}>
-            {medicalConditions.map((word, idx) => {
+            {medicalConditions.map((condition, idx) => {
               return (
                 <Grid item key={idx}>
                 <FormControl component="fieldset" key={idx}>
                   <FormGroup aria-label="position" row>
                     <FormControlLabel
-                      value={word}
+                      value={condition}
                       control={
                         <Checkbox
                           color="primary"
-                          onChange={props.handleCheckbox}
-                          name={word}
+                          onChange={(evt) => props.handleCheckbox(evt)}
+                          name={condition}
                         />
                       }
-                      label={word}
+                      label={condition}
                       labelPlacement={labelPlacement}
                     />
                   </FormGroup>

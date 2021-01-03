@@ -9,7 +9,7 @@ import {
 
 
 export const createPatient = createAsyncThunk(
-    "/patients/create",
+    "/createPatient",
     async (data) => {
         try {
             const res = await axios.post(`${domain}/api/patients`, data);
@@ -36,7 +36,7 @@ export const createPatient = createAsyncThunk(
 // });
 
 export const listPatients = createAsyncThunk(
-    "/patients/list",
+    "/listPatients",
     async () => {
         try {
             const res = await axios.get(`${domain}/api/patients`);

@@ -4,7 +4,7 @@ import React from 'react'
 const Success = () => {
     return (
         <div>
-            success
+            new Patient added
         </div>
     )
 }

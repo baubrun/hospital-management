@@ -10,37 +10,42 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import PatientStepContent from "./PatientStepContent";
 import TitleBar from "../TitleBar";
-import {medicalConditions} from "../../utils"
+import { getTrueKeys } from "../../utils";
 
-import {createPatient} from "../../redux/patientSlice"
+import { createPatient } from "../../redux/patientSlice";
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
-   margin: `${theme.spacing(2)}px 0px`
+    margin: `${theme.spacing(2)}px 0px`,
   },
   step: {
-    margin: "0 64px"
+    margin: "0 64px",
   },
-
 }));
 
-
 const defaultState = {
+  admission: "",
+  careLevel: "",
+  discharge: "",
   email: "",
   firstName: "",
   lastName: "",
-  careLevel: "",
+  medicalHistory: {
+    Stroke: false,
+    "Covid-19": false,
+    "Heart Failure": false,
+    "Cancer Treatment": false,
+    "General Pain": false,
+    "Broken limb": false,
+  },
 };
 
-medicalConditions.forEach((condition) => {
-  defaultState[condition] = false;
-});
 
 const steps = ["Patient Information", "Medical history", "Confirm"];
 
 const PatientFormContainer = () => {
   const dispatch = useDispatch();
-  const classes = useStyles()
+  const classes = useStyles();
   const [values, setValues] = useState(defaultState);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -59,26 +64,49 @@ const PatientFormContainer = () => {
 
   const handleCheckbox = (evt) => {
     const { checked, name } = evt.target;
-    setValues({ ...values, [name]: checked });
+    setValues({
+      ...values,
+      medicalHistory: { 
+        ...values.medicalHistory, 
+        [name]: checked 
+      },
+    });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+
+    const formData = {
+      admission: values.admission,
+      careLevel: values.careLevel,
+      discharge: values.discharge,
+      email: values.email,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      medicalHistory: getTrueKeys(values.medicalHistory)
     
-    dispatch(createPatient())
-    setValues(defaultState)
-    nextStep()
+    }
+    dispatch(createPatient(formData));
+    setValues(defaultState);
+    nextStep();
   };
 
   return (
     <>
-          <Grid item>
-          <TitleBar text="patient information"/>
-        </Grid>
+      <Grid item>
+        <TitleBar text="patient information" />
+      </Grid>
 
-      <Grid className={classes.stepper} container direction="row" justify="center" alignItems="center">
+      <Grid
+        className={classes.stepper}
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
         <Grid item>
-          <Stepper  activeStep={activeStep} alternativeLabel>
+          <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((step, idx) => (
               <Step key={idx}>
                 <StepLabel className={classes.step}>{step}</StepLabel>

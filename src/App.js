@@ -19,7 +19,7 @@ const App = () => {
         <CssBaseline />
         <NavBar />
         <Switch>
-        <Route exact={true} path="/patient/new" component={PatientFormContainer} />
+        <Route exact={true} path="/" component={PatientFormContainer} />
         <Route exact={true} path="/rooms" component={Rooms}/>
         <Route component={NotFound} />
         </Switch>

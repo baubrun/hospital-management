@@ -6,7 +6,7 @@ const patientController = require("../controllers/patientController")
 
 
 
-router.route("/api/patients/create")
+router.route("/api/patients")
     .post(
         patientController.create
     )
