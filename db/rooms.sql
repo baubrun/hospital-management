@@ -6,9 +6,9 @@ create table IF NOT EXISTS rooms (
 	occupant_id INT REFERENCES patients(patient_id)
 	CHECK (room_number <= 25)
 );
-insert into rooms (room_number, short_stay, long_stay, occupied) values (1, true, false, false);
+insert into rooms (room_number, short_stay, long_stay, occupied) values (1, true, true, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (2, false, false, false);
-insert into rooms (room_number, short_stay, long_stay, occupied) values (3, false, false, true);
+insert into rooms (room_number, short_stay, long_stay, occupied) values (3, false, true, true);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (4, false, false, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (5, true, true, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (6, true, true, true);
@@ -21,7 +21,7 @@ insert into rooms (room_number, short_stay, long_stay, occupied) values (12, fal
 insert into rooms (room_number, short_stay, long_stay, occupied) values (13, false, true, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (14, false, false, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (15, true, false, false);
-insert into rooms (room_number, short_stay, long_stay, occupied) values (16, false, false, false);
+insert into rooms (room_number, short_stay, long_stay, occupied) values (16, false, true, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (17, true, false, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (18, false, false, true);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (19, true, true, true);
@@ -30,4 +30,4 @@ insert into rooms (room_number, short_stay, long_stay, occupied) values (21, tru
 insert into rooms (room_number, short_stay, long_stay, occupied) values (22, false, true, true);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (23, true, true, true);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (24, true, false, true);
-insert into rooms (room_number, short_stay, long_stay, occupied) values (25, false, true, false);
+insert into rooms (room_number, short_stay, long_stay, occupied) values (25, true, true, false);
