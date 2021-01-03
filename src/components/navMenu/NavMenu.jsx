@@ -36,18 +36,14 @@ const NavMenu = (props) => {
         {navItems.map((item, idx) => {
           return (
             <React.Fragment>
-             
                 <ListItem   key={idx}>
-                  <Link to="/rooms" className={classes.links}>
+                  <Link to={item.url} className={classes.links}>
                       <Box className={classes.listItem}>
                       <ListItemIcon color={item.color}>{item.icon}</ListItemIcon>
                     <ListItemText primary={item.name}/>
-
                       </Box>
                   </Link>
-                 
                 </ListItem>
-             
               <Divider className={classes.divider}/>
             </React.Fragment>
           );
