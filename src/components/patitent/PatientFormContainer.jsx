@@ -54,9 +54,9 @@ const PatientFormContainer = () => {
     setActiveStep((prevState) => prevState - 1);
   };
 
-  const handleChange = (input) => (evt) => {
-    const { value } = evt.target;
-    setValues({ ...values, [input]: value });
+  const handleChange = (evt) => {
+    const { value, name } = evt.target;
+    setValues({ ...values, [name]: value });
   };
 
   const handleCheckbox = (evt) => {

@@ -34,11 +34,10 @@ const MedicalHistory = (props) => {
     <>
 
       <Grid container direction="column" justify="center" alignItems="center">
-        {/* <Grid item> */}
           <Paper className={classes.paper}>
             {list.map((word, idx) => {
               return (
-                <Grid item>
+                <Grid item key={idx}>
                 <FormControl component="fieldset" key={idx}>
                   <FormGroup aria-label="position" row>
                     <FormControlLabel
@@ -71,14 +70,12 @@ const MedicalHistory = (props) => {
             <Button
               color="primary"
               variant="contained"
-              onClick={props.nextStep}
+              onClick={() => props.nextStep()}
               style={ButtonStyles.button}
             >
               Continue
             </Button>
             </Paper>
-
-          {/* </Grid> */}
         </Grid>
     </>
   );

@@ -7,7 +7,6 @@ import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import {  ButtonStyles } from "../utils";
-import TitleBar from "../TitleBar";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,7 +39,7 @@ const PatientForm = (props) => {
               <TextField
                 label="Last Name"
                 defaultValue={lastName}
-                name="lastname"
+                name="lastName"
                 onChange={(evt) => props.handleChange(evt)}
                 placeholder="Last Name"
                 margin="normal"
@@ -49,7 +48,7 @@ const PatientForm = (props) => {
               <TextField
                 label="Email"
                 defaultValue={email}
-                name=""
+                name="email"
                 onChange={(evt) => props.handleChange(evt)}
                 placeholder="Email"
                 margin="normal"
@@ -57,7 +56,7 @@ const PatientForm = (props) => {
               />
                 <Button
                   color="primary"
-                  onClick={props.nextStep}
+                  onClick={() => props.nextStep()}
                   style={ButtonStyles.button}
                   variant="contained"
                 >
