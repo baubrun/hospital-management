@@ -8,5 +8,7 @@ export const ButtonStyles = {
 
   
 
-
+export const medicalConditions = "Arthritis Hypertension Asthma Chronic Bronchitis Coronary".split(
+  " "
+);
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Button } from "@material-ui/core";
 
 import Checkbox from "@material-ui/core/Checkbox";
@@ -11,10 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { ButtonStyles } from "../utils";
 import Paper from "@material-ui/core/Paper";
 
+import {medicalConditions} from "../utils"
 
-const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
-  " "
-);
 
 const labelPlacement = "end";
 
@@ -35,7 +33,7 @@ const MedicalHistory = (props) => {
 
       <Grid container direction="column" justify="center" alignItems="center">
           <Paper className={classes.paper}>
-            {list.map((word, idx) => {
+            {medicalConditions.map((word, idx) => {
               return (
                 <Grid item key={idx}>
                 <FormControl component="fieldset" key={idx}>

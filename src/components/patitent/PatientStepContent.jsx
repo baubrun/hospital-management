@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import PatientForm from "./PatientForm";
 import MedicalHistory from "./MedicalHistory";
@@ -38,6 +38,7 @@ const PatientStepContent = (props) => {
         <Confirmation 
         nextStep={props.nextStep} 
         prevStep={props.prevStep} 
+        handleChange={props.handleChange}
         values={props.values} 
         />
 

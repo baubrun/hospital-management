@@ -10,11 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PatientStepContent from "./PatientStepContent";
 import TitleBar from "../TitleBar";
 
-const list = "Lorem ipsum dolor sit amet consectetur adipiscing elit Nullam fringilla mi vestibulum sem scelerisque at consectetur nisi auctor".split(
-  " "
-);
-
-
+import {medicalConditions} from "../utils"
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
@@ -31,11 +27,11 @@ const defaultState = {
   email: "",
   firstName: "",
   lastName: "",
-  occupation: "",
+  careLevel: "",
 };
 
-list.forEach((w) => {
-  defaultState[w] = false;
+medicalConditions.forEach((condition) => {
+  defaultState[condition] = false;
 });
 
 const steps = ["Patient Information", "Medical history", "Confirm"];
@@ -64,8 +60,10 @@ const PatientFormContainer = () => {
   };
 
   const handleSubmit = (evt) => {
-    evt.prevenDefault();
-    console.log("submit");
+    evt.preventDefault();
+    console.log("values :>>", values);
+    setValues(defaultState)
+    nextStep()
   };
 
   return (
@@ -87,7 +85,6 @@ const PatientFormContainer = () => {
       </Grid>
 
       <Grid container direction="row" justify="center" alignItems="center">
-
         <Grid item>
           <form onSubmit={handleSubmit}>
             <PatientStepContent
