@@ -24,10 +24,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const defaultState = {
-  admission: "",
   careLevel: "",
-  discharge: "",
-  email: "",
+  discharge: null,
+  insuranceNumber: null,
   firstName: "",
   lastName: "",
   medicalHistory: {
@@ -57,6 +56,10 @@ const PatientFormContainer = () => {
     setActiveStep((prevState) => prevState - 1);
   };
 
+  const resetStep = () => {
+    setActiveStep(0)
+  }
+
   const handleChange = (evt) => {
     const { value, name } = evt.target;
     setValues({ ...values, [name]: value });
@@ -78,10 +81,9 @@ const PatientFormContainer = () => {
 
 
     const formData = {
-      admission: values.admission,
       careLevel: values.careLevel,
       discharge: values.discharge,
-      email: values.email,
+      insuranceNumber: values.insuranceNumber,
       firstName: values.firstName,
       lastName: values.lastName,
       medicalHistory: getTrueKeys(values.medicalHistory)
@@ -89,7 +91,7 @@ const PatientFormContainer = () => {
     }
     dispatch(createPatient(formData));
     setValues(defaultState);
-    nextStep();
+    resetStep()
   };
 
   return (

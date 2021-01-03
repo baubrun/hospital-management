@@ -1,6 +1,6 @@
 import React from "react";
 
-import PatientForm from "./PatientForm";
+import PatientInformation from "./PatientInformation";
 import MedicalHistory from "./MedicalHistory";
 import Confirmation from "./Confirmation";
 import Success from "./Success";
@@ -15,7 +15,7 @@ const PatientStepContent = (props) => {
   switch (props.stepIndex) {
     case 0:
       return (
-        <PatientForm
+        <PatientInformation
           nextStep={props.nextStep}
           handleChange={props.handleChange}
           values={props.values}
@@ -41,10 +41,7 @@ const PatientStepContent = (props) => {
         handleChange={props.handleChange}
         values={props.values} 
         />
-
       );
-    case 3:
-      return <Success />;
     default:
       return null;
   }
