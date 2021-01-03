@@ -22,8 +22,11 @@ const useStyles = makeStyles((theme) => ({
   },
   listItem: {
       display: "flex",
-      color: theme.palette.primary.main
-  }
+      color: theme.palette.secondary.main
+  },
+  icon: {
+    color: theme.palette.secondary.main
+}
 }));
 
 const NavMenu = (props) => {
@@ -39,7 +42,7 @@ const NavMenu = (props) => {
                 <ListItem   key={idx}>
                   <Link to={item.url} className={classes.links}>
                       <Box className={classes.listItem}>
-                      <ListItemIcon color={item.color}>{item.icon}</ListItemIcon>
+                      <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
                     <ListItemText primary={item.name}/>
                       </Box>
                   </Link>
