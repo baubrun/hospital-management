@@ -3,19 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import IconButton from "@material-ui/core/IconButton";
-import Box from "@material-ui/core/Box";
-import ListIcon from "@material-ui/icons/List";
 
 import { makeStyles } from "@material-ui/core/styles";
 import TitleBar from "../TitleBar";
 import { patientsState } from "../../redux/patientSlice";
 import { roomState } from "../../redux/roomSlice";
+import Rooms from "../../components/rooms/Rooms";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,8 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   gridRow: {
     margin: "48px 0px",
-
-  }
+  },
 }));
 
 const Patient = (props) => {
@@ -49,7 +45,7 @@ const Patient = (props) => {
   return (
     <>
       <Grid
-      className={classes.gridRow}
+        className={classes.gridRow}
         container
         direction="row"
         justify="space-between"
@@ -69,7 +65,7 @@ const Patient = (props) => {
       </Grid>
 
       <Grid
-      className={classes.gridRow}
+        className={classes.gridRow}
         container
         direction="row"
         justify="space-between"
@@ -85,19 +81,20 @@ const Patient = (props) => {
         </Grid>
       </Grid>
 
-
       <Grid
-      className={classes.gridRow}
+        className={classes.gridRow}
         container
         direction="row"
         justify="space-between"
         alignItems="center"
       >
         <Grid item>
-        <Typography className={classes.category} variant="h5">Assign to room</Typography>
-
+          <Typography className={classes.category} variant="h5">
+            Assign to room
+          </Typography>
         </Grid>
-        <Grid item>
+
+        {/* <Grid item>
           <FormControl variant="outlined" className={classes.roomSelect}>
             <InputLabel id="select">Rooms Available</InputLabel>
             <Select
@@ -119,6 +116,18 @@ const Patient = (props) => {
               }, [])}
             </Select>
           </FormControl>
+        </Grid> */}
+      </Grid>
+
+      <Grid
+        className={classes.gridRow}
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <Rooms />
         </Grid>
       </Grid>
     </>

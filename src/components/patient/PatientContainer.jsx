@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     borderRight: `1px solid ${theme.palette.divider}`,
   },
   tabPanel: {
-      width: "50% !important",
+    //   width: "50% !important",
       margin: "0px 10%",
     // margin: "auto"
     }
