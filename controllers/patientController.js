@@ -36,7 +36,26 @@ const create = async (req, res) => {
 };
 
 
+
+const list = async (req, res) => {
+    try {
+        const patients = await db.query(
+            "SELECT * FROM patients WHERE discharge IS NULL",
+            );
+        
+        return res.status(200).json({
+            patients: patients.rows
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+};
+
+
+
 module.exports = {
     create,
-
+    list, 
 };
