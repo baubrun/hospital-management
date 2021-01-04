@@ -18,19 +18,23 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: "flex",
-    height: 224,
     elevation: 15,
     margin: theme.spacing(3),
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
+  tabPanel: {
+      width: "50% !important",
+      margin: theme.spacing(3),
+    }
 }));
 
 const PatientContainer = () => {
   const dispatch = useDispatch();
   const { patients, waitingPatients } = useSelector(patientState);
   const [selectedPatient, setSelectedPatient] = useState({});
+    const [values, setValues] = useState({})
 
   const classes = useStyles();
   const [tabValue, setTabValue] = useState(0);
@@ -80,10 +84,12 @@ const PatientContainer = () => {
 };
 
 const TabPanel = (props) => {
+    const classes = useStyles();
   const { children, tabValue, index, ...other } = props;
 
   return (
-    <div
+    <Box
+    className={classes.tabPanel}
       role="tabpanel"
       hidden={tabValue !== index}
       id={`vertical-tabpanel-${index}`}
@@ -92,10 +98,10 @@ const TabPanel = (props) => {
     >
       {tabValue === index && (
         <Box p={3}>
-          <Box>{children}</Box>
+          {children}
         </Box>
       )}
-    </div>
+    </Box>
   );
 };
 

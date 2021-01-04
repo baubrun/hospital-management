@@ -3,8 +3,8 @@ create table IF NOT EXISTS rooms (
 	short_stay BOOLEAN NOT NULL,
 	long_stay BOOLEAN NOT NULL,
 	occupied BOOLEAN NOT NULL,
+	CHECK (room_number <= 25),
 	occupant_id INT REFERENCES patients(patient_id)
-	CHECK (room_number <= 25)
 );
 insert into rooms (room_number, short_stay, long_stay, occupied) values (1, true, true, false);
 insert into rooms (room_number, short_stay, long_stay, occupied) values (2, false, false, false);
