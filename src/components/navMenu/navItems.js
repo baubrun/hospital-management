@@ -11,11 +11,11 @@ export const navItems = [
     url: "/",
   },
 
-  {
-    name: "Occupancy",
-    icon: <GridOnIcon />,
-    url: "/rooms",
-  },
+  // {
+  //   name: "Occupancy",
+  //   icon: <GridOnIcon />,
+  //   url: "/rooms",
+  // },
   {
     name: "Patients",
     icon: <AccessibilityNewIcon />,

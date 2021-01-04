@@ -108,7 +108,7 @@ const Patient = (props) => {
         justify="center"
         alignItems="center"
       >
-        {values.assignMode && (
+        {!values.assignMode && (
           <Grid item>
             <Rooms />
           </Grid>

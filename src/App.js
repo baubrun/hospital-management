@@ -30,7 +30,7 @@ const App = () => {
         <NavBar />
         <Switch>
         <Route exact={true} path="/" component={PatientFormContainer} />
-        <Route exact={true} path="/rooms" component={Rooms}/>
+        {/* <Route exact={true} path="/rooms" component={Rooms}/> */}
         <Route exact={true} path="/patients" component={PatientContainer}/>
         <Route component={NotFound} />
         </Switch>
