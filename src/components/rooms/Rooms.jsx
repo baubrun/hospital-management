@@ -40,7 +40,6 @@ const Rooms = () => {
 
   const isRoomOccupied = (status) => (status ? "#c51162" : "none");
 
-  if (rooms.length < 1) return <Spinner />;
 
   return (
     <>
@@ -58,30 +57,28 @@ const Rooms = () => {
                 <Typography className={classes.header}>long stay</Typography>
               </Grid>
 
-              {rooms.reduce((acc, room, idx) => {
-                if (room.room_number % 2 === 1) {
-                  acc.push(
+              {rooms.filter((r) => r.room_number % 2 === 1).map((room, idx) => {
+                  return (
                     <Grid
-                      key={idx}
-                      item
-                      xs={2}
-                      style={{ cursor: "pointer", margin: "16px 32px" }}
-                    >
-                      <Typography variant="h6" className={classes.rooms}>
-                        {room.room_number}
-                      </Typography>
-                      <Circle
-                        style={{ padding: "0px !important" }}
-                        fill={{ color: isRoomOccupied(room.occupied) }}
-                        stroke={{ color: "#b256c2" }}
-                        strokeWidth={5}
-                        r={20}
-                      />
-                    </Grid>
-                  );
-                }
-                return acc;
-              }, [])}
+                    key={idx}
+                    item
+                    xs={2}
+                    style={{ margin: "16px 32px" }}
+                  >
+                    <Typography variant="h6" className={classes.rooms}>
+                      {room.room_number}
+                    </Typography>
+                    <Circle
+                      style={{ padding: "0px !important" }}
+                      fill={{ color: isRoomOccupied(room.occupied) }}
+                      stroke={{ color: "#b256c2" }}
+                      strokeWidth={5}
+                      r={20}
+                    />
+                  </Grid>
+
+                  )
+                })}
             </Grid>
           </Grid>
 
@@ -100,29 +97,29 @@ const Rooms = () => {
                 <Typography className={classes.header}>short stay</Typography>
               </Grid>
 
-              {rooms.reduce((acc, room, idx) => {
-                if (room.room_number % 2 === 0) {
-                  acc.push(
+              {rooms.filter((r) => r.room_number % 2 === 0).map((room, idx) => {
+                  return (
                     <Grid
-                      key={idx}
-                      item
-                      xs={2}
-                      style={{ cursor: "pointer", margin: "16px 32px" }}
-                    >
-                      <Typography className={classes.rooms} variant="h6">
-                        {room.room_number}
-                      </Typography>
-                      <Circle
-                        fill={{ color: isRoomOccupied(room.occupied) }}
-                        stroke={{ color: "#b256c2" }}
-                        strokeWidth={5}
-                        r={20}
-                      />
-                    </Grid>
-                  );
-                }
-                return acc;
-              }, [])}
+                    key={idx}
+                    item
+                    xs={2}
+                    style={{ margin: "16px 32px" }}
+                  >
+                    <Typography variant="h6" className={classes.rooms}>
+                      {room.room_number}
+                    </Typography>
+                    <Circle
+                      style={{ padding: "0px !important" }}
+                      fill={{ color: isRoomOccupied(room.occupied) }}
+                      stroke={{ color: "#b256c2" }}
+                      strokeWidth={5}
+                      r={20}
+                    />
+                  </Grid>
+
+                  )
+                })}
+
             </Grid>
           </Grid>
         </Grid>

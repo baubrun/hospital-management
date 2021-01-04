@@ -26,8 +26,9 @@ const list = async (req, res) => {
 
     try {
       const text = 
-      `UPDATE rooms SET occupant_id = $2, occupied = $3 WHERE room_number = $1 AND occupied != $3`
-      const returning = "RETURNING room_number, short_stay, long_stay, occupied, occupant_id"
+      `UPDATE rooms SET occupant_id = $2, occupied = $3 WHERE room_number = $1 AND occupied != $3 `
+      const returning = 
+      "RETURNING room_number, short_stay, long_stay, occupied, occupant_id"
       
         const rooms = await db.query(
         `${text} ${returning}`,
@@ -35,7 +36,7 @@ const list = async (req, res) => {
       );
 
       return res.status(200).json({
-        rooms: rooms.rows[0],
+        room: rooms.rows[0],
       });
     } catch (error) {
       return res.status(500).json({

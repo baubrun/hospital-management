@@ -14,7 +14,9 @@ import TitleBar from "../TitleBar";
 import Rooms from "../../components/rooms/Rooms";
 
 import { patientsState } from "../../redux/patientSlice";
-import { roomState } from "../../redux/roomSlice";
+import { roomState, admission } from "../../redux/roomSlice";
+
+import _ from "lodash"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,25 +36,30 @@ const useStyles = makeStyles((theme) => ({
 
 const Patient = (props) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { rooms } = useSelector(roomState);
   const [values, setValues] = useState({
     roomAssigned: "",
     patient_id: props.patient.patient_id,
   });
-  const [roomView, setRoomsView] = useState(false)
+  const [roomView, setRoomsView] = useState(false);
 
   const handleRoom = (evt) => {
-    const {value} = evt.target
+    const { value } = evt.target;
     setValues({ ...values, roomAssigned: value });
   };
 
-
   const handleSubmit = (evt) => {
-    evt.preventDefault()
-    console.log('values :>> ', values);
-  } 
+    evt.preventDefault();
+    // console.log("values :>> ", values);
 
-
+    const data = {
+      room_number: values.roomAssigned,
+      occupied: true,
+      occupant_id: values.patient_id,
+    };
+    dispatch(admission(data));
+  };
 
   return (
     <>
@@ -93,56 +100,50 @@ const Patient = (props) => {
         </Grid>
       </Grid>
 
-
       <form onSubmit={handleSubmit}>
-      <Grid
-        className={classes.gridRow}
-        container
-        direction="row"
-        justify="space-around"
-        alignItems="center"
-      >
-        
-        <Grid item>
-          <Typography variant="h5">ASSIGN TO ROOM: </Typography>
-        </Grid>
-        <Grid item>
-          <FormControl variant="outlined" className={classes.roomSelect}>
-            <InputLabel id="select">Rooms</InputLabel>
-            <Select
-              labelId="select"
-              id="select"
-              value={values.roomAssigned}
-              onChange={(evt) => handleRoom(evt)}
-              label="Rooms"
-            >
-              {rooms.reduce((acc, room, idx) => {
-                if (!room.occupied) {
-                  acc.push(
+        <Grid
+          className={classes.gridRow}
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
+          <Grid item>
+            <Typography variant="h5">ASSIGN TO ROOM: </Typography>
+          </Grid>
+          <Grid item>
+            <FormControl variant="outlined" className={classes.roomSelect}>
+              <InputLabel id="select">Rooms</InputLabel>
+              <Select
+                labelId="select"
+                id="select"
+                value={values.roomAssigned}
+                onChange={(evt) => handleRoom(evt)}
+                label="Rooms"
+              >
+                {rooms.filter(r => r.occupied === false).map((room, idx) => {
+                  return (
                     <MenuItem key={idx} value={room.room_number}>
-                      {room.room_number}
-                    </MenuItem>
-                  );
-                }
-                return acc;
-              }, [])}
-            </Select>
-          </FormControl>
-        </Grid>
+                        {room.room_number}
+                      </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
 
-        <Grid item>
-          <Button
-            className={classes.category}
-            color="primary"
-            size="large"
-            variant="contained"
+          <Grid item>
+            <Button
+              className={classes.category}
+              color="primary"
+              size="large"
+              variant="contained"
               type="submit"
-          >
-            CONFIRM
-          </Button>
+            >
+              CONFIRM
+            </Button>
+          </Grid>
         </Grid>
-       
-      </Grid>
       </form>
 
       <Grid

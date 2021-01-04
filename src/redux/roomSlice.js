@@ -6,6 +6,7 @@ import {
 import {
     domain
 } from "../utils";
+import _ from "lodash"
 
 
 export const listRooms = createAsyncThunk(
@@ -28,7 +29,7 @@ export const admission = createAsyncThunk(
     async (data) => {
         try {
             const res = await axios.post(
-                `${domain}/api/rooms/${data.room_id}/admission`, data.occupant_id);
+                `${domain}/api/rooms/${data.room_number}/admission`, data);
             return res.data;
         } catch (error) {
             return {
@@ -70,12 +71,15 @@ export const roomSlice = createSlice({
             state.loading = false
             const {
                 error,
-                occupant_id
+                room
             } = action.payload;
             if (error) {
                 state.error = error;
             } else {
-                state.occupant_id = occupant_id;
+                const found = state.rooms.findIndex(r => r.room_number === room.room_number)
+                const updatedRooms = _.cloneDeep(state.rooms)
+                updatedRooms[found] = room
+                state.rooms = updatedRooms;
             }
         },
         [admission.rejected]: (state, action) => {
@@ -116,7 +120,7 @@ export const roomSlice = createSlice({
             if (error) {
                 state.error = error;
             } else {
-                state.rooms = rooms;
+                state.rooms = rooms.sort((a,b) => {return a.room_number - b.room_number});
             }
         },
         [listRooms.rejected]: (state, action) => {
