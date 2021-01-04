@@ -19,13 +19,17 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     display: "flex",
     elevation: 15,
-    margin: theme.spacing(3),
+    margin: theme.spacing(1),
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
     // marginRight: theme.spacing(3),
 
   },
+  tab: {
+    //   width: "50% !important",
+      margin: "0px 16pz",
+    },
   tabPanel: {
     //   width: "50% !important",
     //   margin: "0px 20%",
@@ -66,6 +70,7 @@ const PatientContainer = () => {
           {patients.map((p, idx) => {
             return (
               <Tab
+              className={classes.tab}
                 key={idx}
                 label={`${p.first_name} ${p.last_name}`}
                 {...a11yProps(idx)}

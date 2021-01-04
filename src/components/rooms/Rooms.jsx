@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Rooms = () => {
+const Rooms = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { rooms } = useSelector(roomState);

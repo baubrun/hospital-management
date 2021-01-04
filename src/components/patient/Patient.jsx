@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import Button from "@material-ui/core/Button";
 
 import { makeStyles } from "@material-ui/core/styles";
 import TitleBar from "../TitleBar";
@@ -35,6 +36,7 @@ const Patient = (props) => {
   const { rooms } = useSelector(roomState);
   const [values, setValues] = useState({
     room: "",
+    assignMode: false,
   });
 
   const handleChange = (evt) => {
@@ -89,9 +91,15 @@ const Patient = (props) => {
         alignItems="center"
       >
         <Grid item>
-          <Typography className={classes.category} variant="h5">
+          <Button
+            className={classes.category}
+            color="secondary"
+            size="large"
+            variant="contained"
+            onClick={() => setValues({ ...values, assignMode: true })}
+          >
             Assign to room
-          </Typography>
+          </Button>
         </Grid>
 
         {/* <Grid item>
@@ -126,9 +134,11 @@ const Patient = (props) => {
         justify="center"
         alignItems="center"
       >
-        <Grid item>
-          <Rooms />
-        </Grid>
+        {values.assignMode && (
+          <Grid item>
+            <Rooms />
+          </Grid>
+        )}
       </Grid>
     </>
   );
