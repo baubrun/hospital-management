@@ -39,10 +39,6 @@ const Patient = (props) => {
     assignMode: false,
   });
 
-  const handleChange = (evt) => {
-    const { value } = evt.target;
-    setValues({ ...values, room: value });
-  };
 
   return (
     <>
@@ -102,29 +98,7 @@ const Patient = (props) => {
           </Button>
         </Grid>
 
-        {/* <Grid item>
-          <FormControl variant="outlined" className={classes.roomSelect}>
-            <InputLabel id="select">Rooms Available</InputLabel>
-            <Select
-              labelId="select"
-              id="select"
-              value={values.room}
-              onChange={(evt) => handleChange(evt)}
-              label="Rooms Available"
-            >
-              {rooms.reduce((acc, room, idx) => {
-                if (!room.occupied) {
-                  acc.push(
-                    <MenuItem key={idx} value={room.room_number}>
-                      {room.room_number}
-                    </MenuItem>
-                  );
-                }
-                return acc;
-              }, [])}
-            </Select>
-          </FormControl>
-        </Grid> */}
+      
       </Grid>
 
       <Grid
