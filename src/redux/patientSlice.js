@@ -35,6 +35,19 @@ export const listPatients = createAsyncThunk(
         }
     });
 
+export const listWaitingPatients = createAsyncThunk(
+    "/listWaitingPatients",
+    async () => {
+        try {
+            const res = await axios.get(`${domain}/api/patients/waiting`);
+            return res.data;
+        } catch (error) {
+            return {
+                error: error.response.data.error
+            };
+        }
+    });
+
 
 export const patientSlice = createSlice({
     name: "patients",
@@ -47,7 +60,8 @@ export const patientSlice = createSlice({
     reducers: {
         assignPatientToRoom: (state, action) => {
             state.waitingPatients = state.waitingPatients.filter(p => p.patient_id !== action.id)
-        }
+        },
+
     },
     extraReducers: {
         [createPatient.pending]: (state) => {
@@ -87,6 +101,27 @@ export const patientSlice = createSlice({
             }
         },
         [listPatients.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        },
+
+
+        [listWaitingPatients.pending]: (state) => {
+            state.loading = true;
+        },
+        [listWaitingPatients.fulfilled]: (state, action) => {
+            state.loading = false;
+            const {
+                error,
+                waitingPatients
+            } = action.payload;
+            if (error) {
+                state.error = error;
+            } else {
+                state.waitingPatients = waitingPatients;
+            }
+        },
+        [listWaitingPatients.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload.error;
         },

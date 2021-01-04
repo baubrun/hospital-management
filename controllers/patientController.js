@@ -41,8 +41,8 @@ const list = async (req, res) => {
     try {
         const patients = await db.query(
             "SELECT * FROM patients WHERE discharge IS NULL",
-            );
-        
+        );
+
         return res.status(200).json({
             patients: patients.rows
         });
@@ -55,7 +55,27 @@ const list = async (req, res) => {
 
 
 
+const listWaiting = async (req, res) => {
+
+    const text = "SELECT patient_id, first_name, last_name, insurance_number, admission, discharge, medical_history FROM patients LEFT JOIN ROOMS ON patients.patient_id = rooms.occupant_id  WHERE occupant_id IS NULL"
+
+    try {
+        const waitingPatients = await db.query(text);
+
+        return res.status(200).json({
+            waitingPatients: waitingPatients.rows
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+};
+
+
+
 module.exports = {
     create,
-    list, 
+    list,
+    listWaiting,
 };

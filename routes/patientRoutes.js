@@ -6,6 +6,11 @@ const patientController = require("../controllers/patientController")
 
 
 
+router.route("/api/patients/waiting")
+    .get(patientController.listWaiting)
+
+
+
 router.route("/api/patients")
     .get(patientController.list)
     .post(
