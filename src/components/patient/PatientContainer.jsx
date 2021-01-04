@@ -39,12 +39,11 @@ const PatientContainer = () => {
     setTabValue(newValue);
   };
 
-
   useEffect(() => {
-     dispatch(listPatients())
-  }, [])
+    dispatch(listPatients());
+  }, []);
 
-  if (patients.length < 1) return null
+  if (patients.length < 1) return null;
 
   return (
     <>
@@ -59,16 +58,21 @@ const PatientContainer = () => {
           className={classes.tabs}
         >
           {patients.map((p, idx) => {
-            return <Tab label={`${p.first_name} ${p.last_name}`} {...a11yProps(idx)} />;
+            return (
+              <Tab
+                key={idx}
+                label={`${p.first_name} ${p.last_name}`}
+                {...a11yProps(idx)}
+              />
+            );
           })}
         </Tabs>
         {patients.map((patient, idx) => {
           return (
-              <>
-          <TabPanel tabValue={tabValue} index={idx}>
-                <Patient patient={patient} />
-          </TabPanel>
-          </>);
+            <TabPanel key={idx} tabValue={tabValue} index={idx}>
+              <Patient patient={patient} />
+            </TabPanel>
+          );
         })}
       </Paper>
     </>
@@ -88,7 +92,7 @@ const TabPanel = (props) => {
     >
       {tabValue === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <Box>{children}</Box>
         </Box>
       )}
     </div>
