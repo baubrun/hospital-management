@@ -18,10 +18,10 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
   },
- title: {
-   fontWeight: "bolder",
-   letterSpacing: "2px",
- }
+  title: {
+    fontWeight: "bolder",
+    letterSpacing: "2px",
+  },
 }));
 
 const NavBar = () => {
@@ -39,19 +39,21 @@ const NavBar = () => {
             alignItems="center"
           >
             <Grid item>
-              <Typography className={classes.title}  variant="h5">HOSPITAL MANAGEMENT</Typography>
+              <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                onClick={() => setOpenMenu(true)}
+              >
+                <MenuIcon />
+              </IconButton>
             </Grid>
-          </Grid>
 
-          <Grid item>
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              onClick={() => setOpenMenu(true)}
-            >
-              <MenuIcon />
-            </IconButton>
+            <Grid item>
+              <Typography className={classes.title} variant="h5">
+                HOSPITAL MANAGEMENT
+              </Typography>
+            </Grid>
           </Grid>
 
           <NavMenu open={openMenu} close={setOpenMenu} />

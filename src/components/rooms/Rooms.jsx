@@ -107,7 +107,6 @@ const Rooms = () => {
                       key={idx}
                       item
                       xs={2}
-                      // onClick={() => props.handleRoom(room.room_number)}
                       style={{ cursor: "pointer", margin: "16px 32px" }}
                     >
                       <Typography className={classes.rooms} variant="h6">

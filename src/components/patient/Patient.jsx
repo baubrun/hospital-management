@@ -41,9 +41,18 @@ const Patient = (props) => {
   });
   const [roomView, setRoomsView] = useState(false)
 
-  const handleRoom = (roomNum) => {
-    setValues({ ...values, roomAssigned: roomNum });
+  const handleRoom = (evt) => {
+    const {value} = evt.target
+    setValues({ ...values, roomAssigned: value });
   };
+
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
+    console.log('values :>> ', values);
+  } 
+
+
 
   return (
     <>
@@ -84,6 +93,8 @@ const Patient = (props) => {
         </Grid>
       </Grid>
 
+
+      <form onSubmit={handleSubmit}>
       <Grid
         className={classes.gridRow}
         container
@@ -91,18 +102,19 @@ const Patient = (props) => {
         justify="space-around"
         alignItems="center"
       >
+        
         <Grid item>
           <Typography variant="h5">ASSIGN TO ROOM: </Typography>
         </Grid>
         <Grid item>
           <FormControl variant="outlined" className={classes.roomSelect}>
-            <InputLabel id="select">Rooms Available</InputLabel>
+            <InputLabel id="select">Rooms</InputLabel>
             <Select
               labelId="select"
               id="select"
-              value={values.room}
+              value={values.roomAssigned}
               onChange={(evt) => handleRoom(evt)}
-              label="Rooms Available"
+              label="Rooms"
             >
               {rooms.reduce((acc, room, idx) => {
                 if (!room.occupied) {
@@ -117,7 +129,22 @@ const Patient = (props) => {
             </Select>
           </FormControl>
         </Grid>
+
+        <Grid item>
+          <Button
+            className={classes.category}
+            color="primary"
+            size="large"
+            variant="contained"
+              type="submit"
+          >
+            CONFIRM
+          </Button>
+        </Grid>
+       
       </Grid>
+      </form>
+
       <Grid
         className={classes.gridRow}
         container
