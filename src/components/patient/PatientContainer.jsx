@@ -31,7 +31,8 @@ const PatientContainer = () => {
   const dispatch = useDispatch();
   const { patients, waitingPatients } = useSelector(patientState);
   const [selectedPatient, setSelectedPatient] = useState({});
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+  });
 
   const classes = useStyles();
   const [tabValue, setTabValue] = useState(0);

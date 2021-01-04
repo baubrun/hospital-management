@@ -33,12 +33,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Patient = (props) => {
   const classes = useStyles();
-  const { rooms } = useSelector(roomState);
   const [values, setValues] = useState({
-    room: "",
+    roomAssigned: "",
     assignMode: false,
+    patient_id: props.patient.patient_id
   });
 
+  const handleRoom = (roomNum) => {
+    setValues({...values, roomAssigned: roomNum})
+  }
 
   return (
     <>
@@ -110,7 +113,7 @@ const Patient = (props) => {
       >
         {!values.assignMode && (
           <Grid item>
-            <Rooms />
+            <Rooms handleRoom={handleRoom}/>
           </Grid>
         )}
       </Grid>

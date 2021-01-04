@@ -16,7 +16,6 @@ import TitleBar from "../TitleBar";
 const useStyles = makeStyles((theme) => ({
   rooms: {
     textAlign: "center",
-    // margin: theme.spacing(2),
   },
   paper: {
     margin: theme.spacing(3),
@@ -26,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     textTransform: "uppercase",
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 }));
 
 const Rooms = (props) => {
@@ -62,19 +61,18 @@ const Rooms = (props) => {
               {rooms.reduce((acc, room, idx) => {
                 if (room.room_number % 2 === 1) {
                   acc.push(
-                    <Grid 
-                    key={idx} 
-                    item 
-                    xs={2}  
-                    onClick={() => console.log(room.room_number)}
-                    style={{ cursor: "pointer", margin: "16px 32px"
-                  }}
+                    <Grid
+                      key={idx}
+                      item
+                      xs={2}
+                      onClick={() => props.handleRoom(room.room_number)}
+                      style={{ cursor: "pointer", margin: "16px 32px" }}
                     >
                       <Typography variant="h6" className={classes.rooms}>
                         {room.room_number}
                       </Typography>
                       <Circle
-                       style={{ padding: "0px !important" }}
+                        style={{ padding: "0px !important" }}
                         fill={{ color: isRoomOccupied(room.occupied) }}
                         stroke={{ color: "#b256c2" }}
                         strokeWidth={5}
@@ -106,20 +104,17 @@ const Rooms = (props) => {
               {rooms.reduce((acc, room, idx) => {
                 if (room.room_number % 2 === 0) {
                   acc.push(
-                    <Grid 
-                    key={idx} 
-                    item 
-                    xs={2}
-                    onClick={() => console.log(room.room_number)}
-                    style={{ cursor: "pointer", margin: "16px 32px"}}
-
+                    <Grid
+                      key={idx}
+                      item
+                      xs={2}
+                      onClick={() => props.handleRoom(room.room_number)}
+                      style={{ cursor: "pointer", margin: "16px 32px" }}
                     >
                       <Typography className={classes.rooms} variant="h6">
                         {room.room_number}
                       </Typography>
                       <Circle
-                      // style={{ padding: "0px" }}
-                        onClick={() => console.log(room.room_number)}
                         fill={{ color: isRoomOccupied(room.occupied) }}
                         stroke={{ color: "#b256c2" }}
                         strokeWidth={5}
