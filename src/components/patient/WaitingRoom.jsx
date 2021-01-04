@@ -9,8 +9,8 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 
-import TitleBar from "../../components/TitleBar";
-import Patient from "../../components/patient/Patient";
+import TitleBar from "../TitleBar";
+import Patient from "./Patient";
 
 import { patientState, listPatients } from "../../redux/patientSlice";
 
@@ -31,8 +31,7 @@ const PatientContainer = () => {
   const dispatch = useDispatch();
   const { patients, waitingPatients } = useSelector(patientState);
   const [selectedPatient, setSelectedPatient] = useState({});
-  const [values, setValues] = useState({
-  });
+  const [values, setValues] = useState({});
 
   const classes = useStyles();
   const [tabValue, setTabValue] = useState(0);
@@ -45,11 +44,15 @@ const PatientContainer = () => {
     dispatch(listPatients());
   }, []);
 
+
+
+
+
   if (patients.length < 1) return null;
 
   return (
     <>
-      <TitleBar text="patients" />
+      <TitleBar text="waiting Room" />
       <Paper className={classes.root}>
 
         <Grid container direction="row" justify="center" alignItems="center">
