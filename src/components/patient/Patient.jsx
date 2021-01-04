@@ -48,7 +48,7 @@ const Patient = (props) => {
         className={classes.gridRow}
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
       >
         <Grid item>
@@ -68,7 +68,7 @@ const Patient = (props) => {
         className={classes.gridRow}
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
       >
         <Grid item>
@@ -85,7 +85,7 @@ const Patient = (props) => {
         className={classes.gridRow}
         container
         direction="row"
-        justify="space-between"
+        justify="space-around"
         alignItems="center"
       >
         <Grid item>
@@ -123,7 +123,7 @@ const Patient = (props) => {
         className={classes.gridRow}
         container
         direction="row"
-        justify="space-between"
+        justify="center"
         alignItems="center"
       >
         <Grid item>

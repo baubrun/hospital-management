@@ -23,11 +23,12 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
+    // marginRight: theme.spacing(3),
+
   },
   tabPanel: {
     //   width: "50% !important",
-      margin: "0px 10%",
-    // margin: "auto"
+    //   margin: "0px 20%",
     }
 }));
 
