@@ -45,7 +45,7 @@ const PatientContainer = () => {
   }, [])
 
   if (patients.length < 1) return null
-  
+
   return (
     <>
       <TitleBar text="patients" />
@@ -59,7 +59,7 @@ const PatientContainer = () => {
           className={classes.tabs}
         >
           {patients.map((p, idx) => {
-            return <Tab label="Item Two" {...a11yProps(idx)} />;
+            return <Tab label={`${p.first_name} ${p.last_name}`} {...a11yProps(idx)} />;
           })}
         </Tabs>
         {patients.map((patient, idx) => {

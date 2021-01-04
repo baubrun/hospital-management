@@ -28,18 +28,13 @@ const Patient = (props) => {
 
     return (
         <>
-               <TitleBar text="Room Occupancy" />
-      <Paper className={classes.paper} elevation={15}>
         <Grid container direction="row" justify="center" alignItems="center">
-            return (
               <Grid  item xs={2}>
                   <Typography>
                     {props.patient.first_name}
                   </Typography>
               </Grid>
-            );
         </Grid>
-      </Paper>
    
         </>
     )
