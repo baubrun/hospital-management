@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Rooms = (props) => {
+const Rooms = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { rooms } = useSelector(roomState);
@@ -65,7 +65,6 @@ const Rooms = (props) => {
                       key={idx}
                       item
                       xs={2}
-                      onClick={() => props.handleRoom(room.room_number)}
                       style={{ cursor: "pointer", margin: "16px 32px" }}
                     >
                       <Typography variant="h6" className={classes.rooms}>
@@ -108,7 +107,7 @@ const Rooms = (props) => {
                       key={idx}
                       item
                       xs={2}
-                      onClick={() => props.handleRoom(room.room_number)}
+                      // onClick={() => props.handleRoom(room.room_number)}
                       style={{ cursor: "pointer", margin: "16px 32px" }}
                     >
                       <Typography className={classes.rooms} variant="h6">

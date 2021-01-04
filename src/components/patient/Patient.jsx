@@ -11,9 +11,10 @@ import Button from "@material-ui/core/Button";
 
 import { makeStyles } from "@material-ui/core/styles";
 import TitleBar from "../TitleBar";
+import Rooms from "../../components/rooms/Rooms";
+
 import { patientsState } from "../../redux/patientSlice";
 import { roomState } from "../../redux/roomSlice";
-import Rooms from "../../components/rooms/Rooms";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,15 +34,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Patient = (props) => {
   const classes = useStyles();
+  const { rooms } = useSelector(roomState);
   const [values, setValues] = useState({
     roomAssigned: "",
-    assignMode: false,
-    patient_id: props.patient.patient_id
+    patient_id: props.patient.patient_id,
   });
+  const [roomView, setRoomsView] = useState(false)
 
   const handleRoom = (roomNum) => {
-    setValues({...values, roomAssigned: roomNum})
-  }
+    setValues({ ...values, roomAssigned: roomNum });
+  };
 
   return (
     <>
@@ -90,18 +92,50 @@ const Patient = (props) => {
         alignItems="center"
       >
         <Grid item>
+          <Typography variant="h5">ASSIGN TO ROOM: </Typography>
+        </Grid>
+        <Grid item>
+          <FormControl variant="outlined" className={classes.roomSelect}>
+            <InputLabel id="select">Rooms Available</InputLabel>
+            <Select
+              labelId="select"
+              id="select"
+              value={values.room}
+              onChange={(evt) => handleRoom(evt)}
+              label="Rooms Available"
+            >
+              {rooms.reduce((acc, room, idx) => {
+                if (!room.occupied) {
+                  acc.push(
+                    <MenuItem key={idx} value={room.room_number}>
+                      {room.room_number}
+                    </MenuItem>
+                  );
+                }
+                return acc;
+              }, [])}
+            </Select>
+          </FormControl>
+        </Grid>
+      </Grid>
+      <Grid
+        className={classes.gridRow}
+        container
+        direction="row"
+        justify="space-around"
+        alignItems="center"
+      >
+        <Grid item>
           <Button
             className={classes.category}
             color="secondary"
             size="large"
             variant="contained"
-            onClick={() => setValues({ ...values, assignMode: true })}
+            onClick={() => setRoomsView(!roomView)}
           >
-            Assign to room
+            view Occupancies
           </Button>
         </Grid>
-
-      
       </Grid>
 
       <Grid
@@ -111,9 +145,9 @@ const Patient = (props) => {
         justify="center"
         alignItems="center"
       >
-        {!values.assignMode && (
+        {roomView && (
           <Grid item>
-            <Rooms handleRoom={handleRoom}/>
+            <Rooms />
           </Grid>
         )}
       </Grid>
