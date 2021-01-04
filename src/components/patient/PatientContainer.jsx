@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tabPanel: {
       width: "50% !important",
-      margin: theme.spacing(3),
+      margin: "0px 10%",
+    // margin: "auto"
     }
 }));
 

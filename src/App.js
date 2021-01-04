@@ -1,4 +1,5 @@
-import React from "react";
+import React, {useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
@@ -11,9 +12,16 @@ import PatientFormContainer from "./components/patient/patientForm/PatientFormCo
 import NotFound from "./views/NotFound";
 import Rooms from "./components/rooms/Rooms"
 import PatientContainer from "./components/patient/PatientContainer"
+import { listRooms } from "./redux/roomSlice";
 
 
 const App = () => {
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(listRooms())
+  })
 
   return (
     <BrowserRouter>

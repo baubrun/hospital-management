@@ -20,13 +20,17 @@ import { roomState } from "../../redux/roomSlice";
 const useStyles = makeStyles((theme) => ({
   paper: {
     elevation: 15,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
   },
   category: {
     textTransform: "uppercase",
   },
   roomSelect: {
-    minWidth: 250
+    minWidth: 250,
+  },
+  gridRow: {
+    margin: "48px 0px",
+
   }
 }));
 
@@ -45,6 +49,7 @@ const Patient = (props) => {
   return (
     <>
       <Grid
+      className={classes.gridRow}
         container
         direction="row"
         justify="space-between"
@@ -61,15 +66,46 @@ const Patient = (props) => {
         <Grid item>
           <Typography variant="h5">{props.patient.last_name}</Typography>
         </Grid>
+      </Grid>
+
+      <Grid
+      className={classes.gridRow}
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <Typography className={classes.category} variant="h5">
+            Care Level
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="h5">{props.patient.care_level}</Typography>
+        </Grid>
+      </Grid>
+
+
+      <Grid
+      className={classes.gridRow}
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+        <Typography className={classes.category} variant="h5">Assign to room</Typography>
+
+        </Grid>
         <Grid item>
           <FormControl variant="outlined" className={classes.roomSelect}>
-            <InputLabel id="select">Room</InputLabel>
+            <InputLabel id="select">Rooms Available</InputLabel>
             <Select
               labelId="select"
               id="select"
               value={values.room}
               onChange={(evt) => handleChange(evt)}
-              label="Room"
+              label="Rooms Available"
             >
               {rooms.reduce((acc, room, idx) => {
                 if (!room.occupied) {
