@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -45,9 +45,13 @@ const WaitingRoom = () => {
 
   useEffect(() => {
     dispatch(listWaitingPatients());
-  }, []);
+  }, [waitingPatients]);
 
   if (waitingPatients.length < 1) return null;
+
+  const modalRef = createRef();
+
+ 
 
   return (
     <>
@@ -102,8 +106,9 @@ const WaitingRoom = () => {
       className={classes.modal}
         open={viewOccupancy}
         onClose={() => setViewOccupancy(false)}
+        ref={modalRef}
       >
-        <Rooms />
+        <Rooms ref={modalRef}/>
       </Modal>
     </>
   );

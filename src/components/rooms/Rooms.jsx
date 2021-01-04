@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Circle } from "react-shapes";
@@ -125,7 +125,7 @@ const Rooms = () => {
         </Grid>
       </Paper>
     </>
-  );
-};
+  )
+}
 
 export default Rooms;
