@@ -21,7 +21,6 @@ import _ from "lodash"
 const useStyles = makeStyles((theme) => ({
   paper: {
     elevation: 15,
-    // padding: theme.spacing(3),
   },
   category: {
     textTransform: "uppercase",
@@ -51,7 +50,6 @@ const Patient = (props) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // console.log("values :>> ", values);
 
     const data = {
       room_number: values.roomAssigned,
@@ -153,20 +151,9 @@ const Patient = (props) => {
         justify="space-around"
         alignItems="center"
       >
-        <Grid item>
-          <Button
-            className={classes.category}
-            color="secondary"
-            size="large"
-            variant="contained"
-            onClick={() => setRoomsView(!roomView)}
-          >
-            view Occupancies
-          </Button>
-        </Grid>
       </Grid>
 
-      <Grid
+      {/* <Grid
         className={classes.gridRow}
         container
         direction="row"
@@ -178,7 +165,7 @@ const Patient = (props) => {
             <Rooms />
           </Grid>
         )}
-      </Grid>
+      </Grid> */}
     </>
   );
 };
