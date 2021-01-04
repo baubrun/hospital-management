@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const PatientForm = (props) => {
   const classes = useStyles()
   const {
-    values: { firstName, lastName, email },
+    values: { firstName, lastName, insuranceNumber },
   } = props;
 
   return (
@@ -46,12 +46,13 @@ const PatientForm = (props) => {
                 fullWidth
               />
               <TextField
-                label="Email"
-                defaultValue={email}
-                name="email"
+                label="Insurance Number"
+                defaultValue={insuranceNumber}
+                name="insuranceNumber"
                 onChange={(evt) => props.handleChange(evt)}
-                placeholder="Email"
+                placeholder="Insurance Number"
                 margin="normal"
+                type="number"
                 fullWidth
               />
                 <Button
