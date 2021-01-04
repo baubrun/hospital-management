@@ -21,11 +21,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Patient = () => {
+const Patient = (props) => {
   const classes = useStyles();
-    const dispatch = useDispatch();
-    const {patients, waitingPatients} = useSelector(patientsState);
-    const [selectedPatient, setSelectedPatient] = useState({})
 
 
 
@@ -34,7 +31,7 @@ const Patient = () => {
                <TitleBar text="Room Occupancy" />
       <Paper className={classes.paper} elevation={15}>
         <Grid container direction="row" justify="center" alignItems="center">
-          {patients.map((r, idx) => {
+          {props.patients.map((r, idx) => {
             return (
               <Grid key={idx} item xs={2}>
                   <List>

@@ -95,5 +95,5 @@ export const patientSlice = createSlice({
 });
 
 
-export const patientsState = (state) => state.patients;
+export const patientState = (state) => state.patients;
 export default patientSlice.reducer;

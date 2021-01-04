@@ -11,33 +11,8 @@ import Paper from '@material-ui/core/Paper';
 
 import TitleBar from "../../components/TitleBar"
 
-const TabPanel = (props) => {
-  const { children, value, index, ...other } = props;
+import {patientState} from "../../redux/patientSlice"
 
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box p={3}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-
-const a11yProps = (index) => {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`,
-  };
-}
 
 
 
@@ -57,6 +32,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 const PatientContainer = () => {
+    const dispatch = useDispatch();
+    const {patients, waitingPatients} = useSelector(patientState);
+    const [selectedPatient, setSelectedPatient] = useState({})
+
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
@@ -72,7 +51,7 @@ const PatientContainer = () => {
         orientation="vertical"
         variant="scrollable"
         value={value}
-        onChange={() => handleChange()}
+        onChange={handleChange}
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
@@ -110,5 +89,34 @@ const PatientContainer = () => {
   );
 }
 
+const TabPanel = (props) => {
+    const { children, value, index, ...other } = props;
+  
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`vertical-tabpanel-${index}`}
+        aria-labelledby={`vertical-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+  
+  
+  const a11yProps = (index) => {
+    return {
+      id: `vertical-tab-${index}`,
+      'aria-controls': `vertical-tabpanel-${index}`,
+    };
+  }
+  
+  
 
 export default PatientContainer
