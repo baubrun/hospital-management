@@ -41,10 +41,13 @@ export const patientSlice = createSlice({
     initialState: {
         loading: false,
         error: "",
-        patients: []
+        patients: [],
+        waitingPatients: []
     },
     reducers: {
-
+        assignPatientToRoom: (state, action) => {
+            state.waitingPatients = state.waitingPatients.filter(p => p.patient_id !== action.id)
+        }
     },
     extraReducers: {
         [createPatient.pending]: (state) => {
@@ -59,7 +62,7 @@ export const patientSlice = createSlice({
             if (error) {
                 state.error = error;
             } else {
-                state.patients = [...state.patients, patient];
+                state.waitingPatients = [...state.waitingPatients, patient];
             }
         },
         [createPatient.rejected]: (state, action) => {

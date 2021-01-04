@@ -9,10 +9,10 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import PatientStepContent from "./PatientStepContent";
-import TitleBar from "../TitleBar";
-import { getTrueKeys } from "../../utils";
+import TitleBar from "../../TitleBar";
+import { getTrueKeys } from "../../../utils";
 
-import { createPatient } from "../../redux/patientSlice";
+import { createPatient } from "../../../redux/patientSlice";
 
 const useStyles = makeStyles((theme) => ({
   stepper: {

@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/styles";
 import { theme } from "./css/theme";
 
-import PatientFormContainer from "./components/patitent/PatientFormContainer";
+import PatientFormContainer from "./components/patient/patientForm/PatientFormContainer";
 import NotFound from "./views/NotFound";
 import Rooms from "./components/rooms/Rooms"
 

@@ -1,6 +1,6 @@
 import React from "react";
 
-import PatientInformation from "./PatientInformation";
+import PatientInformation from "../patientForm/PatientInformation";
 import MedicalHistory from "./MedicalHistory";
 import Confirmation from "./Confirmation";
 

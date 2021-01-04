@@ -8,10 +8,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { ButtonStyles } from "../../css/theme";
+import { ButtonStyles } from "../../../css/theme";
 import Paper from "@material-ui/core/Paper";
 
-import {medicalConditions} from "../../utils"
+import {medicalConditions} from "../../../utils"
 
 
 const labelPlacement = "end";
