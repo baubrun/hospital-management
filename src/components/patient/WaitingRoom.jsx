@@ -12,7 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import TitleBar from "../TitleBar";
 import Patient from "./Patient";
 
-import { patientState, listPatients } from "../../redux/patientSlice";
+import { patientState, listWaitingPatients } from "../../redux/patientSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PatientContainer = () => {
   const dispatch = useDispatch();
-  const { patients, waitingPatients } = useSelector(patientState);
+  const { waitingPatients } = useSelector(patientState);
   const [selectedPatient, setSelectedPatient] = useState({});
   const [values, setValues] = useState({});
 
@@ -41,14 +41,14 @@ const PatientContainer = () => {
   };
 
   useEffect(() => {
-    dispatch(listPatients());
+    dispatch(listWaitingPatients());
   }, []);
 
 
 
 
 
-  if (patients.length < 1) return null;
+  if (waitingPatients.length < 1) return null;
 
   return (
     <>
@@ -66,7 +66,7 @@ const PatientContainer = () => {
               aria-label="Vertical tabs example"
               className={classes.tabs}
             >
-              {patients.map((p, idx) => {
+              {waitingPatients.map((p, idx) => {
                 return (
                   <Tab
                     className={classes.tab}
@@ -80,7 +80,7 @@ const PatientContainer = () => {
           </Grid>
 
           <Grid item xs={10}>
-          {patients.map((patient, idx) => {
+          {waitingPatients.map((patient, idx) => {
             return (
               <TabPanel key={idx} tabValue={tabValue} index={idx}>
                 <Patient patient={patient} />
