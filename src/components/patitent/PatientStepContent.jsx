@@ -3,7 +3,6 @@ import React from "react";
 import PatientInformation from "./PatientInformation";
 import MedicalHistory from "./MedicalHistory";
 import Confirmation from "./Confirmation";
-import Success from "./Success";
 
 
 
