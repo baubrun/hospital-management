@@ -8,13 +8,17 @@ import Modal from "@material-ui/core/Modal";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 import TitleBar from "../TitleBar";
 import Patient from "./Patient";
 import Rooms from "../../components/rooms/Rooms";
 import Button from "@material-ui/core/Button";
 
 import { patientState, listWaitingPatients } from "../../redux/patientSlice";
+import MessageModal from "../../components/MessageModal";
+import WaitingList from "../../components/patient/WaitingList";
+import PatientContainer from "../../components/patient/PatientContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,18 +30,17 @@ const useStyles = makeStyles((theme) => ({
   },
   modal: {
     width: "80%",
-    margin: "auto"
+    margin: "auto",
   },
 }));
 
 const WaitingRoom = () => {
   const dispatch = useDispatch();
-  const { waitingPatients } = useSelector(patientState);
-  const [selectedPatient, setSelectedPatient] = useState({});
-  const [values, setValues] = useState({});
+  const { waitingPatients, error } = useSelector(patientState);
   const [viewOccupancy, setViewOccupancy] = useState(false);
   const classes = useStyles();
   const [tabValue, setTabValue] = useState(0);
+  const [patients, setPatients] = useState([]);
 
   const handleChange = (event, newValue) => {
     setTabValue(newValue);
@@ -47,47 +50,39 @@ const WaitingRoom = () => {
     dispatch(listWaitingPatients());
   }, []);
 
-  if (waitingPatients.length < 1) return null;
+
+  useEffect(() => {
+    setPatients(waitingPatients)
+  }, [waitingPatients]);
+
+
+  if (patients.length < 1) return null;
 
   return (
     <>
+      {error && <MessageModal />}
+
       <TitleBar text="waiting Room" />
       <Paper className={classes.root}>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={2}>
-            <Tabs
-              orientation="vertical"
-              variant="scrollable"
-              value={tabValue}
-              onChange={handleChange}
-              aria-label="Vertical tabs example"
-              className={classes.tabs}
-            >
-              {waitingPatients.map((p, idx) => {
-                return (
-                  <Tab
-                    className={classes.tab}
-                    key={idx}
-                    label={`${p.first_name} ${p.last_name}`}
-                    {...a11yProps(idx)}
-                  />
-                );
-              })}
-            </Tabs>
+        <WaitingList 
+        handleChange={handleChange} 
+        patients={patients}/>
           </Grid>
 
           <Grid item xs={10}>
-            {waitingPatients.map((patient, idx) => {
+            {patients.map((patient, idx) => {
               return (
-                <TabPanel key={idx} tabValue={tabValue} index={idx}>
+                <PatientContainer key={idx} tabValue={tabValue} index={idx}>
                   <Patient patient={patient} />
-                </TabPanel>
+                </PatientContainer>
               );
             })}
+
           </Grid>
         </Grid>
       </Paper>
-      {/* <Grid item> */}
       <Button
         className={classes.category}
         color="secondary"
@@ -99,39 +94,39 @@ const WaitingRoom = () => {
       </Button>
 
       <Modal
-      className={classes.modal}
+        className={classes.modal}
         open={viewOccupancy}
-        onClose={() =>setViewOccupancy(false)}
+        onClose={() => setViewOccupancy(false)}
       >
-       <Rooms />
+        <Rooms />
       </Modal>
     </>
   );
 };
 
-const TabPanel = (props) => {
-  const classes = useStyles();
-  const { children, tabValue, index, ...other } = props;
+// const TabPanel = (props) => {
+//   const classes = useStyles();
+//   const { children, tabValue, index, ...other } = props;
 
-  return (
-    <Box
-      className={classes.tabPanel}
-      role="tabpanel"
-      hidden={tabValue !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      {tabValue === index && <Box p={3}>{children}</Box>}
-    </Box>
-  );
-};
+//   return (
+//     <Box
+//       className={classes.tabPanel}
+//       role="tabpanel"
+//       hidden={tabValue !== index}
+//       id={`vertical-tabpanel-${index}`}
+//       aria-labelledby={`vertical-tab-${index}`}
+//       {...other}
+//     >
+//       {tabValue === index && <Box p={3}>{children}</Box>}
+//     </Box>
+//   );
+// };
 
-const a11yProps = (index) => {
-  return {
-    id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
-  };
-};
+// const a11yProps = (index) => {
+//   return {
+//     id: `vertical-tab-${index}`,
+//     "aria-controls": `vertical-tabpanel-${index}`,
+//   };
+// };
 
 export default WaitingRoom;

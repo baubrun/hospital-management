@@ -34,12 +34,15 @@ const useStyles = makeStyles((theme) => ({
 const Patient = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { waitingPatients } = useSelector(patientState);
   const { rooms } = useSelector(roomState);
   const [values, setValues] = useState({
     roomAssigned: "",
     patient_id: props.patient.patient_id,
   });
+
+  // useEffect(() => {
+  //   setValues({...values, patient_id: props.patient.patient_id})
+  // }, []);
 
 
 
@@ -63,7 +66,7 @@ const Patient = (props) => {
 
 
 
-
+  if (!props.patient.patient_id) return null
 
   return (
     <>

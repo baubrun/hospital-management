@@ -9,7 +9,7 @@ import {
 
 
 export const createPatient = createAsyncThunk(
-    "/createPatient",
+    "/api/patients/create",
     async (data) => {
         try {
             const res = await axios.post(`${domain}/api/patients`, data);
@@ -23,7 +23,7 @@ export const createPatient = createAsyncThunk(
 
 
 export const listPatients = createAsyncThunk(
-    "/listPatients",
+    "/api/patients/list",
     async () => {
         try {
             const res = await axios.get(`${domain}/api/patients`);
@@ -36,7 +36,7 @@ export const listPatients = createAsyncThunk(
     });
 
 export const listWaitingPatients = createAsyncThunk(
-    "/listWaitingPatients",
+    "/api/patients/waiting",
     async () => {
         try {
             const res = await axios.get(`${domain}/api/patients/waiting`);
@@ -60,6 +60,9 @@ export const patientSlice = createSlice({
     reducers: {
         assignPatientToRoom: (state, action) => {
             state.waitingPatients = state.waitingPatients.filter(p => p.patient_id !== action.id)
+        },
+        clearError: (state, ) => {
+            state.error = ""
         },
 
     },
@@ -116,7 +119,7 @@ export const patientSlice = createSlice({
                 waitingPatients
             } = action.payload;
             if (error) {
-                state.error = error;
+                state.error = "Rooms already occupied.";
             } else {
                 state.waitingPatients = waitingPatients;
             }
@@ -130,5 +133,6 @@ export const patientSlice = createSlice({
 });
 
 
+export const {clearError} = patientSlice.actions
 export const patientState = (state) => state.patients;
 export default patientSlice.reducer;
