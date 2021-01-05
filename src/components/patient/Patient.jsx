@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Typography from "@material-ui/core/Typography";
@@ -10,10 +10,8 @@ import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 
 import { makeStyles } from "@material-ui/core/styles";
-import TitleBar from "../TitleBar";
-import Rooms from "../../components/rooms/Rooms";
 
-import { patientsState } from "../../redux/patientSlice";
+import { patientState, listWaitingPatients } from "../../redux/patientSlice";
 import { roomState, admission } from "../../redux/roomSlice";
 
 import _ from "lodash"
@@ -36,12 +34,15 @@ const useStyles = makeStyles((theme) => ({
 const Patient = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { waitingPatients } = useSelector(patientState);
   const { rooms } = useSelector(roomState);
   const [values, setValues] = useState({
     roomAssigned: "",
     patient_id: props.patient.patient_id,
   });
-  const [roomView, setRoomsView] = useState(false);
+
+
+
 
   const handleRoom = (evt) => {
     const { value } = evt.target;
@@ -57,7 +58,12 @@ const Patient = (props) => {
       occupant_id: values.patient_id,
     };
     dispatch(admission(data));
+    dispatch(listWaitingPatients());
   };
+
+
+
+
 
   return (
     <>
@@ -152,20 +158,6 @@ const Patient = (props) => {
         alignItems="center"
       >
       </Grid>
-
-      {/* <Grid
-        className={classes.gridRow}
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-      >
-        {roomView && (
-          <Grid item>
-            <Rooms />
-          </Grid>
-        )}
-      </Grid> */}
     </>
   );
 };

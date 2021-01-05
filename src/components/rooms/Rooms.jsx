@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Circle } from "react-shapes";
@@ -10,7 +10,6 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { roomState, listRooms } from "../../redux/roomSlice";
-import Spinner from "../Spinner";
 import TitleBar from "../TitleBar";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Rooms = (props) => {
+const Rooms = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { rooms } = useSelector(roomState);
