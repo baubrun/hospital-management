@@ -1,4 +1,4 @@
-import React, { useState, useEffect,forwardRef } from "react";
+import React, { useState, useEffect, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Circle } from "react-shapes";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Rooms = () => {
+const Rooms = (props) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { rooms } = useSelector(roomState);
@@ -40,92 +40,92 @@ const Rooms = () => {
 
   const isRoomOccupied = (status) => (status ? "#c51162" : "none");
 
-
   return (
     <>
-      <TitleBar text="Room Occupancy" />
-      <Paper className={classes.paper} elevation={15}>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={4}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-            >
-              <Grid item xs={12}>
-                <Typography className={classes.header}>long stay</Typography>
+        <TitleBar text="Room Occupancy" />
+        <Paper className={classes.paper} elevation={15}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={4}>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item xs={12}>
+                  <Typography className={classes.header}>long stay</Typography>
+                </Grid>
+
+                {rooms
+                  .filter((r) => r.room_number % 2 === 1)
+                  .map((room, idx) => {
+                    return (
+                      <Grid
+                        key={idx}
+                        item
+                        xs={2}
+                        style={{ margin: "16px 32px" }}
+                      >
+                        <Typography variant="h6" className={classes.rooms}>
+                          {room.room_number}
+                        </Typography>
+                        <Circle
+                          style={{ padding: "0px !important" }}
+                          fill={{ color: isRoomOccupied(room.occupied) }}
+                          stroke={{ color: "#b256c2" }}
+                          strokeWidth={5}
+                          r={20}
+                        />
+                      </Grid>
+                    );
+                  })}
               </Grid>
+            </Grid>
 
-              {rooms.filter((r) => r.room_number % 2 === 1).map((room, idx) => {
-                  return (
-                    <Grid
-                    key={idx}
-                    item
-                    xs={2}
-                    style={{ margin: "16px 32px" }}
-                  >
-                    <Typography variant="h6" className={classes.rooms}>
-                      {room.room_number}
-                    </Typography>
-                    <Circle
-                      style={{ padding: "0px !important" }}
-                      fill={{ color: isRoomOccupied(room.occupied) }}
-                      stroke={{ color: "#b256c2" }}
-                      strokeWidth={5}
-                      r={20}
-                    />
-                  </Grid>
+            <Grid item xs={2}>
+              <Box></Box>
+            </Grid>
 
-                  )
-                })}
+            <Grid item xs={4} className={classes.evenRooms}>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item xs={12}>
+                  <Typography className={classes.header}>short stay</Typography>
+                </Grid>
+
+                {rooms
+                  .filter((r) => r.room_number % 2 === 0)
+                  .map((room, idx) => {
+                    return (
+                      <Grid
+                        key={idx}
+                        item
+                        xs={2}
+                        style={{ margin: "16px 32px" }}
+                      >
+                        <Typography variant="h6" className={classes.rooms}>
+                          {room.room_number}
+                        </Typography>
+                        <Circle
+                          style={{ padding: "0px !important" }}
+                          fill={{ color: isRoomOccupied(room.occupied) }}
+                          stroke={{ color: "#b256c2" }}
+                          strokeWidth={5}
+                          r={20}
+                        />
+                      </Grid>
+                    );
+                  })}
+              </Grid>
             </Grid>
           </Grid>
-
-          <Grid item xs={2}>
-            <Box></Box>
-          </Grid>
-
-          <Grid item xs={4} className={classes.evenRooms}>
-            <Grid
-              container
-              direction="row"
-              justify="center"
-              alignItems="center"
-            >
-              <Grid item xs={12}>
-                <Typography className={classes.header}>short stay</Typography>
-              </Grid>
-
-              {rooms.filter((r) => r.room_number % 2 === 0).map((room, idx) => {
-                  return (
-                    <Grid
-                    key={idx}
-                    item
-                    xs={2}
-                    style={{ margin: "16px 32px" }}
-                  >
-                    <Typography variant="h6" className={classes.rooms}>
-                      {room.room_number}
-                    </Typography>
-                    <Circle
-                      style={{ padding: "0px !important" }}
-                      fill={{ color: isRoomOccupied(room.occupied) }}
-                      stroke={{ color: "#b256c2" }}
-                      strokeWidth={5}
-                      r={20}
-                    />
-                  </Grid>
-
-                  )
-                })}
-
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
     </>
-  )
-}
+  );
+};
 
 export default Rooms;

@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   modal: {
     width: "80%",
     margin: "auto"
-  }
+  },
 }));
 
 const WaitingRoom = () => {
@@ -48,10 +48,6 @@ const WaitingRoom = () => {
   }, [waitingPatients]);
 
   if (waitingPatients.length < 1) return null;
-
-  const modalRef = createRef();
-
- 
 
   return (
     <>
@@ -102,13 +98,14 @@ const WaitingRoom = () => {
         view Occupancies
       </Button>
 
+      {/* {viewOccupancy && <Rooms />} */}
+
       <Modal
       className={classes.modal}
         open={viewOccupancy}
-        onClose={() => setViewOccupancy(false)}
-        ref={modalRef}
+        onClose={() =>setViewOccupancy(false)}
       >
-        <Rooms ref={modalRef}/>
+       <Rooms />
       </Modal>
     </>
   );
