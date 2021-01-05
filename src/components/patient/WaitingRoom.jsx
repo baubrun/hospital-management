@@ -2,14 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
 import Modal from "@material-ui/core/Modal";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import TitleBar from "../TitleBar";
 import Patient from "./Patient";
 import Rooms from "../../components/rooms/Rooms";
@@ -17,8 +12,9 @@ import Button from "@material-ui/core/Button";
 
 import { patientState, listWaitingPatients } from "../../redux/patientSlice";
 import MessageModal from "../../components/MessageModal";
-import WaitingList from "../../components/patient/WaitingList";
-import PatientContainer from "../../components/patient/PatientContainer";
+import ListComponent from "../../components/ListComponent";
+
+import _ from "lodash"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,24 +32,31 @@ const useStyles = makeStyles((theme) => ({
 
 const WaitingRoom = () => {
   const dispatch = useDispatch();
-  const { waitingPatients, error } = useSelector(patientState);
-  const [viewOccupancy, setViewOccupancy] = useState(false);
   const classes = useStyles();
-  const [tabValue, setTabValue] = useState(0);
+  const { waitingPatients, error } = useSelector(patientState);
   const [patients, setPatients] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedPatient, setSelectedPatient] = useState({})
+  const [viewOccupancy, setViewOccupancy] = useState(false);
 
-  const handleChange = (event, newValue) => {
-    setTabValue(newValue);
+  const handleSelected = (id) => {
+    setSelectedId(id);
   };
 
   useEffect(() => {
     dispatch(listWaitingPatients());
   }, []);
 
+  useEffect(() => {
+    setPatients(waitingPatients);
+  }, [waitingPatients]);
 
   useEffect(() => {
-    setPatients(waitingPatients)
-  }, [waitingPatients]);
+    if (selectedId){
+      const found = patients.find(p => p.patient_id === selectedId)
+    setSelectedPatient(found)
+    }
+  }, [selectedId]);
 
 
   if (patients.length < 1) return null;
@@ -64,23 +67,22 @@ const WaitingRoom = () => {
 
       <TitleBar text="waiting Room" />
       <Paper className={classes.root}>
-        <Grid container direction="row" justify="center" alignItems="center">
+        <Grid container 
+        direction="row" 
+        justify="center" 
+        alignItems="center">
+
           <Grid item xs={2}>
-        <WaitingList 
-        handleChange={handleChange} 
-        patients={patients}/>
+            <ListComponent 
+            onClickItem={handleSelected} 
+            patients={patients} 
+            />
           </Grid>
 
           <Grid item xs={10}>
-            {patients.map((patient, idx) => {
-              return (
-                <PatientContainer key={idx} tabValue={tabValue} index={idx}>
-                  <Patient patient={patient} />
-                </PatientContainer>
-              );
-            })}
-
+            {selectedId && <Patient patient={selectedPatient} />}
           </Grid>
+
         </Grid>
       </Paper>
       <Button
@@ -103,30 +105,5 @@ const WaitingRoom = () => {
     </>
   );
 };
-
-// const TabPanel = (props) => {
-//   const classes = useStyles();
-//   const { children, tabValue, index, ...other } = props;
-
-//   return (
-//     <Box
-//       className={classes.tabPanel}
-//       role="tabpanel"
-//       hidden={tabValue !== index}
-//       id={`vertical-tabpanel-${index}`}
-//       aria-labelledby={`vertical-tab-${index}`}
-//       {...other}
-//     >
-//       {tabValue === index && <Box p={3}>{children}</Box>}
-//     </Box>
-//   );
-// };
-
-// const a11yProps = (index) => {
-//   return {
-//     id: `vertical-tab-${index}`,
-//     "aria-controls": `vertical-tabpanel-${index}`,
-//   };
-// };
 
 export default WaitingRoom;
