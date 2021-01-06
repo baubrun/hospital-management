@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
 import { patientState, listWaitingPatients } from "../../redux/patientSlice";
 import { roomState, admission } from "../../redux/roomSlice";
@@ -23,22 +24,38 @@ import ListComponent from "../../components/ListComponent";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    elevation: 15,
+  category: {
+    textTransform: "uppercase",
   },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
+  confirm: {
+    marginLeft: theme.spacing(6),
   },
   modal: {
     width: "80%",
     margin: "auto",
   },
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    elevation: 15,
+  },
   roomInput: {
     minWidth: 150,
   },
+  tabs: {
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
   viewBtn: {
     margin: theme.spacing(2),
+  },
+  showAssign: {
+    // alignItems: "center",
+    // display: "flex",
+    // flexDirection: "row",
+    // justify: "space-evenly",
+    visibility: "visible",
+  },
+  hideAssign: {
+    visibility: "none",
   },
 }));
 
@@ -106,7 +123,12 @@ const WaitingRoom = () => {
 
       <TitleBar text="waiting Room" />
 
-      <Grid container direction="row"  alignItems="center">
+      <Grid
+        container
+        direction="row"
+        justify="space-evenly"
+        alignItems="center"
+      >
         <Grid item>
           <Button
             className={clsx([classes.category, classes.viewBtn])}
@@ -119,58 +141,57 @@ const WaitingRoom = () => {
           </Button>
         </Grid>
 
-        {selectedId && (
-          <Grid
-            // className={classes.gridRow}
-            container
-            direction="row"
-            justify="space-evenly"
-            alignItems="center"
-          >
-            <Grid item>
-              <Typography variant="h5">PATIENT TO ROOM: </Typography>
-            </Grid>
+        <Grid item>
+          <Typography variant="h5" className={classes.category}>
+            assign patient to room:
+          </Typography>
+        </Grid>
 
-            <Grid item>
-              <form onSubmit={handleSubmit}>
-                <FormControl variant="outlined" className={classes.roomSelect}>
-                  <InputLabel id="select">Rooms</InputLabel>
-                  <Select
-                    className={classes.roomInput}
-                    labelId="select"
-                    id="select"
-                    value={values.roomAssigned}
-                    onChange={(evt) => handleRoom(evt)}
-                    label="Rooms"
-                  >
-                    {rooms
-                      .filter((r) => r.occupied === false)
-                      .map((room, idx) => {
-                        return (
-                          <MenuItem key={idx} value={room.room_number}>
-                            {room.room_number}
-                          </MenuItem>
-                        );
-                      })}
-                  </Select>
-                </FormControl>
-              </form>
-            </Grid>
-
-            <Grid item>
-              <Button
-                className={classes.category}
-                color="primary"
-                size="large"
-                variant="contained"
-                type="submit"
+        <Grid
+          item
+          className={`${selectedId ? classes.showAssign : classes.hideAssign}`}
+        >
+          {/* <form onSubmit={handleSubmit}> */}
+            <FormControl variant="outlined" className={classes.roomSelect}>
+              <InputLabel id="select" className={classes.category}>
+                room
+              </InputLabel>
+              <Select
+                className={classes.roomInput}
+                labelId="select"
+                id="select"
+                value={values.roomAssigned}
+                onChange={(evt) => handleRoom(evt)}
+                label="Rooms"
               >
-                CONFIRM
-              </Button>
-            </Grid>
+                {rooms
+                  .filter((r) => r.occupied === false)
+                  .map((room, idx) => {
+                    return (
+                      <MenuItem key={idx} value={room.room_number}>
+                        {room.room_number}
+                      </MenuItem>
+                    );
+                  })}
+              </Select>
+            </FormControl>
           </Grid>
-        )}
-      </Grid>
+
+          <Grid item>
+            <Button
+              className={classes.category}
+              color="primary"
+              size="large"
+              variant="contained"
+              type="submit"
+            >
+              CONFIRM
+            </Button>
+          </Grid>
+
+          {/* </form> */}
+          </Grid>
+
       <Paper className={classes.root}>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={2}>

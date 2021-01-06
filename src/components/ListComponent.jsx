@@ -26,7 +26,6 @@ const ListComponent = (props) => {
     setPatients(props.patients)
   }, [props.patients])
 
-    console.log('props.patients :>> ', props.patients);
 
     if (patients.length < 1) return null
 

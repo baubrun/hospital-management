@@ -17,9 +17,6 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     elevation: 15,
   },
-  category: {
-    textTransform: "uppercase",
-  },
   roomSelect: {
     minWidth: 250,
   },
@@ -27,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "48px 0px",
   },
   card: {
-    margin: ` 0px ${theme.spacing(4)}px`
+    margin: `0px ${theme.spacing(4)}px`
   },
 }));
 
@@ -92,8 +89,6 @@ const Patient = (props) => {
           <Typography variant="h5">{props.patient.care_level}</Typography>
         </Grid>
       </Grid>
-
-
 
       <Grid
         className={classes.gridRow}
