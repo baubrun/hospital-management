@@ -122,6 +122,7 @@ const WaitingRoom = () => {
       {error && <MessageModal />}
 
       <TitleBar text="waiting Room" />
+      <form onSubmit={handleSubmit}>
 
       <Grid
         container
@@ -147,11 +148,7 @@ const WaitingRoom = () => {
           </Typography>
         </Grid>
 
-        <Grid
-          item
-          className={`${selectedId ? classes.showAssign : classes.hideAssign}`}
-        >
-          {/* <form onSubmit={handleSubmit}> */}
+          <Grid item>
             <FormControl variant="outlined" className={classes.roomSelect}>
               <InputLabel id="select" className={classes.category}>
                 room
@@ -188,10 +185,10 @@ const WaitingRoom = () => {
               CONFIRM
             </Button>
           </Grid>
-
-          {/* </form> */}
-          </Grid>
-
+       
+      </Grid>
+      </form>
+      
       <Paper className={classes.root}>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={2}>
