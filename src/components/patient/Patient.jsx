@@ -8,8 +8,7 @@ import Card from "@material-ui/core/Card";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import { listWaitingPatients } from "../../redux/patientSlice";
-import { roomState, admission } from "../../redux/roomSlice";
+import { roomState } from "../../redux/roomSlice";
 import { CardContent } from "@material-ui/core";
 
 
@@ -24,31 +23,41 @@ const useStyles = makeStyles((theme) => ({
     margin: "48px 0px",
   },
   card: {
-    margin: `0px ${theme.spacing(4)}px`
+    margin: `0px ${theme.spacing(4)}px`,
+    width: "60%",
+    margin: "auto"
   },
 }));
 
+const defaultState = {
+  first_name: "",
+  last_name: "",
+  care_level: null,
 
+}
 
 const Patient = (props) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   const { rooms } = useSelector(roomState);
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState(defaultState);
 
 
-  // useEffect(() => {
-  //   setValues({
-  //     ...values, 
-  //     ...props.patient
-  //   })
-  // }, [props.patient]);
+  useEffect(() => {
+      // console.log('props.selectedId :>> ', props.selectedId);
+      setValues({
+        ...props.patient
+      })  
+  }, [props.patient]);
 
 
+  useEffect(() => {
+    if (!props.selectedId){
+      setValues(defaultState)
+    }
+  }, [props.selectedId])
 
 
-
-  if (!props.patient) return null
+  // if (!values.care_level) return null
 
   return (
     <Card raised className={classes.card}>
@@ -57,19 +66,21 @@ const Patient = (props) => {
         className={classes.gridRow}
         container
         direction="row"
-        justify="space-around"
+        justify="space-evenly"
         alignItems="center"
       >
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <Typography className={classes.category} variant="h5" color="primary">
             Patient
           </Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h5">{props.patient.first_name}</Typography>
+        <Grid item xs={5}>
+          {/* <Typography variant="h5">{props.patient.first_name}</Typography> */}
+          <Typography variant="h5">{values.first_name}</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Typography variant="h5">{props.patient.last_name}</Typography>
+        <Grid item xs={5}>
+          {/* <Typography variant="h5">{props.patient.last_name}</Typography> */}
+          <Typography variant="h5">{values.last_name}</Typography>
         </Grid>
       </Grid>
 
@@ -80,13 +91,14 @@ const Patient = (props) => {
         justify="space-around"
         alignItems="center"
       >
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Typography className={classes.category} variant="h5" color="primary">
             Care Level
           </Typography>
         </Grid>
-        <Grid item xs={10} >
-          <Typography variant="h5">{props.patient.care_level}</Typography>
+        <Grid item xs={9} >
+          {/* <Typography variant="h5">{props.patient.care_level}</Typography> */}
+          <Typography variant="h5">{values.care_level}</Typography>
         </Grid>
       </Grid>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,40 +47,29 @@ const useStyles = makeStyles((theme) => ({
   viewBtn: {
     margin: theme.spacing(2),
   },
-  showAssign: {
-    // alignItems: "center",
-    // display: "flex",
-    // flexDirection: "row",
-    // justify: "space-evenly",
-    visibility: "visible",
-  },
-  hideAssign: {
-    visibility: "none",
-  },
 }));
 
-const defaultState = {
-  roomAssigned: "",
-  patient_id: null,
-  first_name: "",
-  last_name: "",
-  care_level: null,
-};
+
+
 
 const WaitingRoom = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { rooms } = useSelector(roomState);
-
   const { waitingPatients, error } = useSelector(patientState);
   const [patients, setPatients] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState({});
   const [viewOccupancy, setViewOccupancy] = useState(false);
-  const [values, setValues] = useState(defaultState);
+  const [values, setValues] = useState({
+    patient_id: null,
+    roomAssigned: "",
+  });
+
 
   const handleSelected = (id) => {
     setSelectedId(id);
+    setValues({...values, patient_id: id})
   };
 
   useEffect(() => {
@@ -88,15 +77,18 @@ const WaitingRoom = () => {
   }, []);
 
   useEffect(() => {
-    setPatients(waitingPatients);
-  }, [waitingPatients]);
+    setPatients(waitingPatients)
+ }, [waitingPatients]);
+
 
   useEffect(() => {
     if (selectedId) {
+      // console.log('selectedId :>> ', selectedId);
       const found = patients.find((p) => p.patient_id === selectedId);
       setSelectedPatient(found);
     }
   }, [selectedId]);
+
 
   const handleRoom = (evt) => {
     const { value } = evt.target;
@@ -113,17 +105,18 @@ const WaitingRoom = () => {
     };
     dispatch(admission(data));
     dispatch(listWaitingPatients());
+    setSelectedId(null)
   };
 
-  if (patients.length < 1) return null;
+  // if (patients.length < 1) return null;
 
   return (
     <>
       {error && <MessageModal />}
 
       <TitleBar text="waiting Room" />
-      <form onSubmit={handleSubmit}>
 
+      <form onSubmit={handleSubmit}>
       <Grid
         container
         direction="row"
@@ -187,8 +180,7 @@ const WaitingRoom = () => {
           </Grid>
        
       </Grid>
-      </form>
-      
+
       <Paper className={classes.root}>
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item xs={2}>
@@ -196,10 +188,12 @@ const WaitingRoom = () => {
           </Grid>
 
           <Grid item xs={10}>
-            {selectedId && <Patient patient={selectedPatient} />}
+            {/* {selectedId && <Patient patient={selectedPatient} />} */}
+             <Patient patient={selectedPatient} selectedId={selectedId}/>
           </Grid>
         </Grid>
       </Paper>
+      </form>
 
       <Modal
         className={classes.modal}

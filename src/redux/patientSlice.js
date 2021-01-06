@@ -119,9 +119,9 @@ export const patientSlice = createSlice({
                 waitingPatients
             } = action.payload;
             if (error) {
-                state.error = "Room is occupied.";
+                state.error = error;
             } else {
-                state.waitingPatients = waitingPatients;
+                state.waitingPatients = waitingPatients
             }
         },
         [listWaitingPatients.rejected]: (state, action) => {
