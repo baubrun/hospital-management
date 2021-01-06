@@ -119,7 +119,7 @@ export const patientSlice = createSlice({
                 waitingPatients
             } = action.payload;
             if (error) {
-                state.error = "Rooms already occupied.";
+                state.error = "Room is occupied.";
             } else {
                 state.waitingPatients = waitingPatients;
             }
