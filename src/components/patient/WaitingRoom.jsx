@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -14,7 +14,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
 
 import { patientState, listWaitingPatients } from "../../redux/patientSlice";
 import { roomState, admission } from "../../redux/roomSlice";
@@ -83,7 +82,6 @@ const WaitingRoom = () => {
 
   useEffect(() => {
     if (selectedId) {
-      // console.log('selectedId :>> ', selectedId);
       const found = patients.find((p) => p.patient_id === selectedId);
       setSelectedPatient(found);
     }
@@ -107,8 +105,6 @@ const WaitingRoom = () => {
     dispatch(listWaitingPatients());
     setSelectedId(null)
   };
-
-  // if (patients.length < 1) return null;
 
   return (
     <>
@@ -188,7 +184,6 @@ const WaitingRoom = () => {
           </Grid>
 
           <Grid item xs={10}>
-            {/* {selectedId && <Patient patient={selectedPatient} />} */}
              <Patient patient={selectedPatient} selectedId={selectedId}/>
           </Grid>
         </Grid>

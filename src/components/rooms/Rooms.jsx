@@ -7,7 +7,8 @@ import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { roomState, listRooms } from "../../redux/roomSlice";
 import TitleBar from "../TitleBar";
@@ -26,7 +27,20 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     textAlign: "center",
   },
+  toolTip: {
+    fontSize: "32px",
+    letterSpacing: "2px"
+  }
 }));
+
+const CustomToolTip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow: theme.shadows[1],
+    fontSize: 24,
+  },
+}))(Tooltip);
+
 
 const Rooms = () => {
   const classes = useStyles();
@@ -59,15 +73,22 @@ const Rooms = () => {
                   .filter((r) => r.room_number % 2 === 1)
                   .map((room, idx) => {
                     return (
+                      <CustomToolTip 
+                      title={room.occupied? `${room.first_name} ${room.last_name}`: "VACANT"} 
+                      placement="bottom-end"
+                      >
+
                       <Grid
                         key={idx}
                         item
                         xs={2}
                         style={{ margin: "16px 32px" }}
                       >
+
                         <Typography variant="h6" className={classes.rooms}>
                           {room.room_number}
                         </Typography>
+
                         <Circle
                           style={{ padding: "0px !important" }}
                           fill={{ color: isRoomOccupied(room.occupied) }}
@@ -76,6 +97,8 @@ const Rooms = () => {
                           r={20}
                         />
                       </Grid>
+                      </CustomToolTip>
+
                     );
                   })}
               </Grid>
@@ -100,15 +123,22 @@ const Rooms = () => {
                   .filter((r) => r.room_number % 2 === 0)
                   .map((room, idx) => {
                     return (
+                      <CustomToolTip 
+                      title={room.occupied? `${room.first_name} ${room.last_name}`: "VACANT"} 
+                      placement="bottom-end"
+                      >
+
                       <Grid
                         key={idx}
                         item
                         xs={2}
                         style={{ margin: "16px 32px" }}
                       >
+
                         <Typography variant="h6" className={classes.rooms}>
                           {room.room_number}
                         </Typography>
+
                         <Circle
                           style={{ padding: "0px !important" }}
                           fill={{ color: isRoomOccupied(room.occupied) }}
@@ -117,9 +147,10 @@ const Rooms = () => {
                           r={20}
                         />
                       </Grid>
+                      </CustomToolTip>
+
                     );
-                  })}
-              </Grid>
+                  })}              </Grid>
             </Grid>
           </Grid>
         </Paper>
