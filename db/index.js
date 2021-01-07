@@ -5,9 +5,6 @@ const config = require("../config")
 
 const pool = new Pool({
     connectionString: config.DB_URI,
-    ssl: {
-        rejectUnauthorized: false,
-      },
 })
 
 
