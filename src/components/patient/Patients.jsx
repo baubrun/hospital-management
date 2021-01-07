@@ -2,11 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
+import ListComponent from "../ListComponent"
 
 import { makeStyles } from "@material-ui/core/styles";
+
+
+
+import { listPatients, patientState } from "../../redux/patientSlice";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,24 +35,31 @@ const defaultState = {
   first_name: "",
   last_name: "",
   care_level: null,
-  waitingRoom: false,
+  admission: null,
+  discharge: null,
+  medicalHistory: [],
+  userHasClearance: false,
 };
 
-const Patient = (props) => {
+const Patients = () => {
+  const dispatch = useDispatch();
+  const { patients } = useSelector(patientState);
+
   const classes = useStyles();
   const [values, setValues] = useState(defaultState);
+  const [patientRecords, setPatientRecords] = useState([]);
+
 
   useEffect(() => {
-    setValues({
-      ...props.patient,
-    });
-  }, [props.patient]);
+    dispatch(listPatients())
+  }, []);
+
 
   useEffect(() => {
-    if (!props.selectedId) {
-      setValues(defaultState);
-    }
-  }, [props.selectedId]);
+    setPatientRecords(patients)
+  }, [patients]);
+
+if (values)
 
   return (
     <Card raised className={classes.card}>
@@ -59,23 +72,17 @@ const Patient = (props) => {
           alignItems="center"
         >
           <Grid item xs={2}>
-            <Typography
-              className={classes.category}
-              variant="h5"
-              color="primary"
-            >
-              Patient
-            </Typography>
+            <ListComponent patients={patientRecords}/>
           </Grid>
-          <Grid item xs={5}>
-            <Typography variant="h5">{values.first_name}</Typography>
-          </Grid>
-          <Grid item xs={5}>
-            <Typography variant="h5">{values.last_name}</Typography>
-          </Grid>
+          {/* <Grid item xs={5}>
+            <TextField variant="contained" >{values.first_name}</TextField>
+          </Grid> */}
+          {/* <Grid item xs={5}>
+            <TextField variant="contained" >{values.last_name}</TextField>
+          </Grid> */}
         </Grid>
 
-        <Grid
+        {/* <Grid
           className={classes.gridRow}
           container
           direction="row"
@@ -83,23 +90,33 @@ const Patient = (props) => {
           alignItems="center"
         >
           <Grid item xs={3}>
-            <Typography
+            <TextField
               className={classes.category}
               variant="h5"
               color="primary"
             >
               Care Level
-            </Typography>
+            </TextField>
           </Grid>
           <Grid item xs={9}>
-            <Typography variant="h5">{values.care_level}</Typography>
+            <TextField variant="h5" value={values.care_level}></TextField>
           </Grid>
-        </Grid>
+        </Grid> */}
 
-    
+        {/* <Grid
+          className={classes.gridRow}
+          container
+          direction="row"
+          justify="space-around"
+          alignItems="center"
+        >
+          <Grid item xs={9}>
+            <TextField variant="h5">{values.admission}</TextField>
+          </Grid>
+        </Grid> */}
       </CardContent>
     </Card>
   );
 };
 
-export default Patient;
+export default Patients;

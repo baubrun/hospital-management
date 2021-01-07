@@ -1,6 +1,6 @@
 import React from "react";
 
-import GridOnIcon from "@material-ui/icons/GridOn";
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import QueueIcon from "@material-ui/icons/Queue";
 import AirlineSeatLegroomExtraIcon from '@material-ui/icons/AirlineSeatLegroomExtra';
 
@@ -11,10 +11,14 @@ export const navItems = [
     icon: <QueueIcon />,
     url: "/",
   },
-
   {
     name: "Waiting Room",
     icon: <AirlineSeatLegroomExtraIcon />,
     url: "/waiting",
+  },
+  {
+    name: "Patients",
+    icon: <PeopleAltIcon />,
+    url: "/patients",
   },
 ];
