@@ -71,9 +71,39 @@ const listWaiting = async (req, res) => {
 };
 
 
+const read = async (req, res) => {
+    const {
+        first_name,
+        last_name
+    } = req.body
+
+    try {
+        const patient = await db.query(
+            `SELECT
+            first_name, last_name, care_level, admission, discharge, patient_id, room_number, occupant_id, occupied
+         FROM patients
+         LEFT JOIN rooms 
+             ON patients.patient_id = rooms.occupant_id
+            WHERE first_name = $1 AND last_name = $2
+         `,
+            [first_name, last_name]
+
+        );
+        return res.status(200).json({
+            patient: patient.rows[0]
+        });
+    } catch (error) {
+        return res.status(500).json({
+            error: error.message
+        });
+    }
+};
+
+
 
 module.exports = {
     create,
     list,
     listWaiting,
+    read,
 };

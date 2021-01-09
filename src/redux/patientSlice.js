@@ -22,6 +22,20 @@ export const createPatient = createAsyncThunk(
     });
 
 
+export const readPatient = createAsyncThunk(
+    "/api/patients/read",
+    async (data) => {
+        try {
+            const res = await axios.post(`${domain}/api/patients/read`, data);
+            return res.data;
+        } catch (error) {
+            return {
+                error: error.response.data.error
+            };
+        }
+    });
+
+
 export const listPatients = createAsyncThunk(
     "/api/patients/list",
     async () => {
@@ -54,6 +68,7 @@ export const patientSlice = createSlice({
     initialState: {
         loading: false,
         error: "",
+        patient: {},
         patients: [],
         waitingPatients: []
     },
@@ -128,6 +143,29 @@ export const patientSlice = createSlice({
             state.loading = false;
             state.error = action.payload.error;
         },
+
+
+        [readPatient.pending]: (state) => {
+            state.loading = true;
+        },
+        [readPatient.fulfilled]: (state, action) => {
+            state.loading = false;
+            const {
+                error,
+                patient
+            } = action.payload;
+            if (error) {
+                state.error = error;
+            } else {
+                state.patient =  patient
+            }
+        },
+        [readPatient.rejected]: (state, action) => {
+            state.loading = false;
+            state.error = action.payload.error;
+        },
+
+
 
     },
 });

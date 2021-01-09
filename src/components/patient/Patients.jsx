@@ -13,9 +13,12 @@ import ListItemText from "@material-ui/core/ListItemText";
 import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
+import SendIcon from '@material-ui/icons/Send';
 
+import TitleBar from "../../components/TitleBar"
 import ListComponent from "../ListComponent";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { listPatients, patientState } from "../../redux/patientSlice";
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: 400,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: "rgb(178, 86, 194, 0.7)",
     marginTop: theme.spacing(4),
   },
   input: {
@@ -34,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
     color: "#fff",
     padding: theme.spacing(1),
+    fontSize: "24px"
   },
   icon: { 
     color: "#fff", 
@@ -46,8 +50,11 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     height: 28,
     margin: 4,
-    borderBlockColor: "#fff",
+    color: "#fff",
   },
+  send: {
+    color: theme.palette.secondary.main
+  }
 }));
 
 const defaultState = {
@@ -58,15 +65,17 @@ const defaultState = {
   discharge: null,
   medicalHistory: [],
   userHasClearance: false,
+  full_name: "",
 };
 
 const Patients = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { patients } = useSelector(patientState);
-  const [values, setValues] = useState(defaultState);
   const [patientRecords, setPatientRecords] = useState([]);
   const [foundPatient, setFoundPatient] = useState({});
+  const [values, setValues] = useState(defaultState);
+
 
   useEffect(() => {
     dispatch(listPatients());
@@ -76,9 +85,25 @@ const Patients = () => {
     setPatientRecords(patients);
   }, [patients]);
 
+
+
+  const handleSearch = (evt) => {
+    evt.preventDefault()
+    const [last_name, first_name] = values.full_name.split(",")
+    console.log("values", last_name);
+    console.log("values", first_name);
+  }
+
+
+  const handleChange = (evt) => {
+    const {value} = evt.target
+    setValues({...values, full_name: value})
+  }
+
   if (values)
     return (
       <>
+      <TitleBar text="search patient" />
         <Grid
           className={classes.gridRow}
           container
@@ -87,14 +112,28 @@ const Patients = () => {
           alignItems="center"
         >
           <Grid item>
-            <Paper component="form" className={classes.root}>
+            <Paper 
+            component="form"
+            className={classes.root}
+            onSubmit={handleSearch}
+            >
               <Icon className={classes.icon}>
                 <SearchIcon className={classes.icon} />
               </Icon>
               <Divider className={classes.divider} orientation="vertical" />
               <InputBase
                 className={classes.input}
-                placeholder="Search Patient"
+                placeholder="Last Name, First Name"
+                value={values.full_name}
+                onChange={(evt) => handleChange(evt)}
+              endAdornment={
+              <IconButton 
+              className={classes.send}
+              type="submit"
+              >
+                <SendIcon />
+                </IconButton>
+            }
               />
             </Paper>
           </Grid>
