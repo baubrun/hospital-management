@@ -9,7 +9,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 import PatientFormContainer from "./components/patient/patientForm/PatientFormContainer";
-import Patients from "./components/patient/Patients";
+import Search from "./components/patient/Search";
 import NotFound from "./views/NotFound";
 import WaitingRoom from "./components/patient/WaitingRoom"
 import { listRooms } from "./redux/roomSlice";
@@ -30,7 +30,7 @@ const App = () => {
         <NavBar />
         <Switch>
         <Route exact={true} path="/" component={PatientFormContainer} />
-        <Route exact={true} path="/patients" component={Patients} />
+        <Route exact={true} path="/search" component={Search} />
         <Route exact={true} path="/waiting" component={WaitingRoom}/>
         <Route component={NotFound} />
         </Switch>

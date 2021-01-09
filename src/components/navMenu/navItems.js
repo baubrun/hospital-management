@@ -17,8 +17,8 @@ export const navItems = [
     url: "/waiting",
   },
   {
-    name: "Patients",
+    name: "Search",
     icon: <PeopleAltIcon />,
-    url: "/patients",
+    url: "/search",
   },
 ];

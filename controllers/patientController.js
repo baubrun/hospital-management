@@ -76,11 +76,11 @@ const read = async (req, res) => {
         first_name,
         last_name
     } = req.body
-
+    
     try {
         const patient = await db.query(
             `SELECT
-            first_name, last_name, care_level, admission, discharge, patient_id, room_number, occupant_id, occupied
+            first_name, last_name, care_level, admission, discharge, room_number, occupied
          FROM patients
          LEFT JOIN rooms 
              ON patients.patient_id = rooms.occupant_id
