@@ -11,28 +11,39 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import SendIcon from "@material-ui/icons/Send";
-import {
-  DatePicker,
-} from "@material-ui/pickers";
+import { DatePicker } from "@material-ui/pickers";
 import TitleBar from "../TitleBar";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import { readPatient, patientState } from "../../redux/patientSlice";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     color: "#fff",
-    fontSize: "24px",
+    fontSize: 24,
   },
   iconButton: {
     padding: 10,
     color: "#fff",
   },
-  inputs: {
+  text: {
+    fontWeight: "bold",
     minWidth: 300,
     margin: theme.spacing(2),
+    padding: "32px 0px",
+    border: `1px solid ${theme.palette.secondary.main}`,
+    borderRadius: 5,
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
+  textLabel: {
     color: theme.palette.secondary.main,
+    fontSize: 20,
+    fontWeight: "bolder",
+    textAlign: "center",
+    textTransform: "uppercase",
   },
   divider: {
     height: 28,
@@ -51,9 +62,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgb(178, 86, 194, 0.7)",
     margin: theme.spacing(4),
   },
-  root:{
+  root: {
     backgroundColor: "rgba(197, 17, 98,0.3)",
-    height: "100vh"
+    height: "100vh",
   },
   searchInput: {
     marginLeft: theme.spacing(1),
@@ -65,6 +76,10 @@ const useStyles = makeStyles((theme) => ({
   send: {
     color: theme.palette.secondary.main,
   },
+  date: {
+  padding: "32px",
+  color: theme.palette.secondary.main,
+}
 }));
 
 const defaultState = {
@@ -85,10 +100,10 @@ const SearchPatient = () => {
   const [dischargeDate, setDischargeDate] = useState(null);
 
   useEffect(() => {
-    if(patient){
+    if (patient) {
       setValues(patient);
-      setAdmissionDate(patient.admission)
-      setDischargeDate(patient.discharge)
+      setAdmissionDate(patient.admission);
+      setDischargeDate(patient.discharge);
     }
   }, [patient]);
 
@@ -143,78 +158,67 @@ const SearchPatient = () => {
             </Paper>
           </Grid>
         </Grid>
-        <Paper className={classes.patientInfo}>
-          <Grid
-            container
-            className={classes.gridRow}
-            direction="row"
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item xs={3}>
-              <TextField
-                className={classes.inputs}
-                label="First Name"
-                variant="outlined"
-                value={values.first_name}
-              />
+        {admissionDate && (
+          <Paper className={classes.patientInfo}>
+            <Grid
+              container
+              className={classes.gridRow}
+              direction="row"
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <Box className={classes.textLabel}>First Name</Box>
+                <Box className={classes.text}>{values.first_name}</Box>
+              </Grid>
+
+              <Grid item>
+                <Box className={classes.textLabel}>Last Name</Box>
+
+                <Box className={classes.text}>{values.last_name}</Box>
+              </Grid>
+
+              <Grid item>
+                <Box className={classes.textLabel}>Room Number</Box>
+                <Box className={classes.text}>{values.room_number}</Box>
+              </Grid>
             </Grid>
 
-            <Grid item xs={3}>
-              <TextField
-                className={classes.inputs}
-                label="Last Name"
-                variant="outlined"
-                value={values.last_name}
-              />
-            </Grid>
+            <Grid
+              container
+              className={classes.gridRow}
+              direction="row"
+              justify="space-evenly"
+              alignItems="center"
+            >
+              <Grid item>
+                <Box className={classes.textLabel}>Admission Date</Box>
+                <Box className={classes.text}>
+                  {moment(admissionDate).format("L")}
+                </Box>
+              </Grid>
 
-            <Grid item xs={3}>
-              <TextField
-                className={classes.inputs}
-                label="Room Number"
-                variant="outlined"
-                value={values.room_number}
-              />
+              <Grid item>
+              <Box className={classes.textLabel}>Discharge Date</Box>
+                {/* <Box className={classes.text}> */}
+                <DatePicker
+                  disableToolbar
+                  disablePast
+                  color="secondary"
+                  variant="dialog"
+                  format="MM/dd/yyyy"
+                  margin="normal"
+                  label="Discharge Date"
+                  value={dischargeDate || null}
+                  onChange={(evt) => setDischargeDate(evt)}
+                  inputVariant="outlined"
+                  inputProps={{ className: classes.date  }}
+                />
+                {/* </Box> */}
+              </Grid>
             </Grid>
-          </Grid>
-
-          <Grid
-            container
-            className={classes.gridRow}
-            direction="row"
-            justify="space-around"
-            alignItems="center"
-          >
-            <Grid item xs={4}>
-              <DatePicker
-                className={classes.inputs}
-                disableToolbar
-                variant="dialog"
-                format="MM/dd/yyyy"
-                margin="normal"
-                label="Admission Date"
-                value={admissionDate || null}
-                onChange={(evt) => setAdmissionDate(evt)}
-                inputVariant="outlined"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <DatePicker
-                className={classes.inputs}
-                disableToolbar
-                disablePast
-                variant="dialog"
-                format="MM/dd/yyyy"
-                margin="normal"
-                label="Discharge Date"
-                value={dischargeDate || null}
-                onChange={(evt) => setDischargeDate(evt)}
-                inputVariant="outlined"
-              />
-            </Grid>
-          </Grid>
-        </Paper>
+          </Paper>
+        )}
       </Box>
     );
 };

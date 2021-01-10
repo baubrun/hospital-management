@@ -60,7 +60,6 @@ const Patient = (props) => {
         >
           <Grid item xs={2}>
             <Typography
-              className={classes.category}
               variant="h5"
               color="primary"
             >
@@ -84,7 +83,6 @@ const Patient = (props) => {
         >
           <Grid item xs={3}>
             <Typography
-              className={classes.category}
               variant="h5"
               color="primary"
             >
