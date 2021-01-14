@@ -20,12 +20,6 @@ router.route("/api/patients/waiting")
     .get(patientController.listWaiting)
 
 
-
-    router.route("/api/patients/:patient_id/admission")
-    .post(
-        patientController.admission
-    )
-
 router.route("/api/patients/:patient_id/discharge")
     .post(
         patientController.discharge

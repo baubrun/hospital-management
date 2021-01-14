@@ -11,13 +11,12 @@ import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import SendIcon from "@material-ui/icons/Send";
-import { DatePicker } from "@material-ui/pickers";
 import TitleBar from "../TitleBar";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import { readPatient, patientState } from "../../redux/patientSlice";
-import { discharge } from "../../redux/roomSlice";
+import { roomDischarge } from "../../redux/roomSlice";
 
 import moment from "moment";
 
@@ -138,7 +137,7 @@ const SearchPatient = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(discharge(values.room_number));
+    dispatch(roomDischarge(values.room_number));
   };
 
   if (values)
@@ -232,6 +231,7 @@ const SearchPatient = () => {
                     className={classes.discharge}
                     variant="contained"
                     color="secondary"
+                    type="submit"
                   >
                     DISCHARGE
                   </Button>

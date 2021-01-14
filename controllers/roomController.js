@@ -62,7 +62,6 @@ const discharge = async (req, res) => {
   const {
     room_id
   } = req.params
-
   try {
 
     await db.query(
@@ -73,15 +72,6 @@ const discharge = async (req, res) => {
       [room_id]
     );
 
-    await db.query(
-      `UPDATE patients 
-      SET discharge = CURRENT_DATE
-      FROM rooms
-      WHERE rooms.occupant_id = $1
-      `,
-      [room_id]
-
-    )
     return res.status(200).json({success: true});
   } catch (error) {
     return res.status(500).json({

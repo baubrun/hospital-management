@@ -39,7 +39,7 @@ export const roomAdmission = createAsyncThunk(
     });
 
 
-export const discharge = createAsyncThunk(
+export const roomDischarge = createAsyncThunk(
     "api/rooms/room_id/discharge",
     async (room_id) => {
         try {
@@ -88,10 +88,10 @@ export const roomSlice = createSlice({
         },
 
 
-        [discharge.pending]: (state) => {
+        [roomDischarge.pending]: (state) => {
             state.loading = true
         },
-        [discharge.fulfilled]: (state, action) => {
+        [roomDischarge.fulfilled]: (state, action) => {
             state.loading = false
             const {
                 error,
@@ -102,7 +102,7 @@ export const roomSlice = createSlice({
                 
             }
         },
-        [discharge.rejected]: (state, action) => {
+        [roomDischarge.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.error;
         },

@@ -3,32 +3,6 @@ const db = require("../db");
 
 
 
-const admission = async (req, res) => {
-
-    const {
-        occupant_id,
-    } = req.body
-  
-
-    try {
-  
-      await db.query(
-        `UPDATE patients 
-        SET discharge = 
-        WHERE patient_id = $1
-        `,
-        [occupant_id]
-      );
-  
-      return res.status(200).json({success: true});
-    } catch (error) {
-      return res.status(500).json({
-        error: error.message
-      });
-    }
-  };
-
-
 
 const create = async (req, res) => {
     const {
@@ -68,6 +42,7 @@ const discharge = async (req, res) => {
 
     const {
         occupant_id,
+        discharge,
     } = req.body
   
 
@@ -156,7 +131,6 @@ const read = async (req, res) => {
 
 
 module.exports = {
-    admission,
     discharge,
     create,
     list,
