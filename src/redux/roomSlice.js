@@ -24,7 +24,7 @@ export const listRooms = createAsyncThunk(
     });
 
 
-export const admission = createAsyncThunk(
+export const roomAdmission = createAsyncThunk(
     "api/rooms/room_id/admission",
     async (data) => {
         try {
@@ -64,10 +64,10 @@ export const roomSlice = createSlice({
     },
     reducers: {},
     extraReducers: {
-        [admission.pending]: (state) => {
+        [roomAdmission.pending]: (state) => {
             state.loading = true
         },
-        [admission.fulfilled]: (state, action) => {
+        [roomAdmission.fulfilled]: (state, action) => {
             state.loading = false
             const {
                 error,
@@ -82,7 +82,7 @@ export const roomSlice = createSlice({
                 state.rooms = updatedRooms;
             }
         },
-        [admission.rejected]: (state, action) => {
+        [roomAdmission.rejected]: (state, action) => {
             state.loading = false
             state.error = action.payload.error;
         },
@@ -95,12 +95,11 @@ export const roomSlice = createSlice({
             state.loading = false
             const {
                 error,
-                occupant_id
             } = action.payload;
             if (error) {
                 state.error = error;
             } else {
-                state.occupant_id = occupant_id;
+                
             }
         },
         [discharge.rejected]: (state, action) => {

@@ -5,6 +5,12 @@ const patientController = require("../controllers/patientController")
 
 
 
+router.route("/api/patients")
+    .get(patientController.list)
+    .post(
+        patientController.create
+    )
+
 
 router.route("/api/patients/read")
     .post(patientController.read)
@@ -15,13 +21,15 @@ router.route("/api/patients/waiting")
 
 
 
-router.route("/api/patients")
-    .get(patientController.list)
+    router.route("/api/patients/:patient_id/admission")
     .post(
-        patientController.create
+        patientController.admission
     )
 
-
+router.route("/api/patients/:patient_id/discharge")
+    .post(
+        patientController.discharge
+    )
 
 
 module.exports = router

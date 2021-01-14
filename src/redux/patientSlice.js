@@ -8,11 +8,41 @@ import {
 } from "../utils";
 
 
+
+export const admitPatient = createAsyncThunk(
+    "/api/patients/admit",
+    async (data) => {
+        try {
+            const res = await axios.post(
+                `${domain}/api/patients/${data.patient_id}/admit`, data);
+            return res.data;
+        } catch (error) {
+            return {
+                error: error.response.data.error
+            };
+        }
+    });
+
+
 export const createPatient = createAsyncThunk(
     "/api/patients/create",
     async (data) => {
         try {
             const res = await axios.post(`${domain}/api/patients`, data);
+            return res.data;
+        } catch (error) {
+            return {
+                error: error.response.data.error
+            };
+        }
+    });
+
+export const dischargePatient = createAsyncThunk(
+    "/api/patients/discharge",
+    async (data) => {
+        try {
+            const res = await axios.post(
+                `${domain}/api/patients/${data.patient_id}/discharge`, data);
             return res.data;
         } catch (error) {
             return {
@@ -68,15 +98,15 @@ export const patientSlice = createSlice({
     initialState: {
         loading: false,
         error: "",
-        // patient: {},
-        "patient": {
-            "first_name": "Korella",
-            "last_name": "Charrett",
-            "care_level": 4,
-            "admission": "2020-12-02T05:00:00.000Z",
-            "discharge": null,
-            "room_number": 1
-        },
+        patient: {},
+        // "patient": {
+        //     "first_name": "Korella",
+        //     "last_name": "Charrett",
+        //     "care_level": 4,
+        //     "admission": "2020-12-02T05:00:00.000Z",
+        //     "discharge": null,
+        //     "room_number": 1
+        // },
         patients: [],
         waitingPatients: []
     },

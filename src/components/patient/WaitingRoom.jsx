@@ -16,7 +16,7 @@ import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 
 import { patientState, listWaitingPatients } from "../../redux/patientSlice";
-import { roomState, admission } from "../../redux/roomSlice";
+import { roomState, roomAdmission } from "../../redux/roomSlice";
 
 import MessageModal from "../../components/MessageModal";
 import ListComponent from "../../components/ListComponent";
@@ -101,7 +101,7 @@ const WaitingRoom = () => {
       occupied: true,
       occupant_id: values.patient_id,
     };
-    dispatch(admission(data));
+    dispatch(roomAdmission(data));
     dispatch(listWaitingPatients());
     setSelectedId(null)
   };

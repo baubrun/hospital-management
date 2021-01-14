@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import SearchIcon from "@material-ui/icons/Search";
@@ -17,37 +17,35 @@ import TitleBar from "../TitleBar";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { readPatient, patientState } from "../../redux/patientSlice";
+import { discharge } from "../../redux/roomSlice";
+
 import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
+  date: {
+    fontWeight: "bold",
+    padding: "32px",
+    textAlign: "center",
+  },
+  discharge: {
+    fontWeight: "bold",
+    padding: theme.spacing(2),
+    fontSize: 16,
+  },
+  divider: {
+    height: 28,
+    margin: 4,
+    color: "#fff",
+  },
+  gridRow: {
+    margin: theme.spacing(2),
+  },
   icon: {
     color: "#fff",
     fontSize: 24,
   },
   iconButton: {
     padding: 10,
-    color: "#fff",
-  },
-  text: {
-    fontWeight: "bold",
-    minWidth: 300,
-    margin: theme.spacing(2),
-    padding: "32px 0px",
-    border: `1px solid ${theme.palette.secondary.main}`,
-    borderRadius: 5,
-    textAlign: "center",
-    textTransform: "uppercase",
-  },
-  textLabel: {
-    color: theme.palette.secondary.main,
-    fontSize: 20,
-    fontWeight: "bolder",
-    textAlign: "center",
-    textTransform: "uppercase",
-  },
-  divider: {
-    height: 28,
-    margin: 4,
     color: "#fff",
   },
   patientInfo: {
@@ -76,10 +74,24 @@ const useStyles = makeStyles((theme) => ({
   send: {
     color: theme.palette.secondary.main,
   },
-  date: {
-  padding: "32px",
-  color: theme.palette.secondary.main,
-}
+  text: {
+    fontSize: "16px",
+    fontWeight: "bold",
+    minWidth: 300,
+    margin: theme.spacing(2),
+    padding: "32px 0px",
+    border: `1px solid ${theme.palette.secondary.main}`,
+    borderRadius: 5,
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
+  textLabel: {
+    color: theme.palette.secondary.main,
+    fontSize: 20,
+    fontWeight: "bolder",
+    textAlign: "center",
+    textTransform: "uppercase",
+  },
 }));
 
 const defaultState = {
@@ -109,6 +121,7 @@ const SearchPatient = () => {
 
   const handleSearch = (evt) => {
     evt.preventDefault();
+    if (!values.full_name) return
     const [last_name, first_name] = values.full_name.split(",");
     dispatch(
       readPatient({
@@ -123,17 +136,16 @@ const SearchPatient = () => {
     setValues({ ...values, full_name: value });
   };
 
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    dispatch(discharge(values.room_number));
+  };
+
   if (values)
     return (
       <Box className={classes.root}>
         <TitleBar text="search patient" />
-        <Grid
-          className={classes.gridRow}
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-        >
+        <Grid container direction="row" justify="center" alignItems="center">
           <Grid item>
             <Paper
               className={classes.search}
@@ -147,7 +159,7 @@ const SearchPatient = () => {
               <InputBase
                 className={classes.searchInput}
                 placeholder="Last Name, First Name"
-                value={values.full_name}
+                value={values.full_name || ""}
                 onChange={(evt) => handleChange(evt)}
                 endAdornment={
                   <IconButton className={classes.send} type="submit">
@@ -159,10 +171,13 @@ const SearchPatient = () => {
           </Grid>
         </Grid>
         {admissionDate && (
-          <Paper className={classes.patientInfo}>
+          <Paper
+            className={classes.patientInfo}
+            component="form"
+            onSubmit={handleSubmit}
+          >
             <Grid
               container
-              className={classes.gridRow}
               direction="row"
               justify="center"
               alignItems="center"
@@ -186,7 +201,6 @@ const SearchPatient = () => {
 
             <Grid
               container
-              className={classes.gridRow}
               direction="row"
               justify="space-evenly"
               alignItems="center"
@@ -198,23 +212,30 @@ const SearchPatient = () => {
                 </Box>
               </Grid>
 
-              <Grid item>
-              <Box className={classes.textLabel}>Discharge Date</Box>
-                {/* <Box className={classes.text}> */}
-                <DatePicker
-                  disableToolbar
-                  disablePast
-                  color="secondary"
-                  variant="dialog"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  label="Discharge Date"
-                  value={dischargeDate || null}
-                  onChange={(evt) => setDischargeDate(evt)}
-                  inputVariant="outlined"
-                  inputProps={{ className: classes.date  }}
-                />
-                {/* </Box> */}
+              {dischargeDate && (
+                <Grid item>
+                  <Box className={classes.textLabel}>Discharge Date</Box>
+                  <Box className={classes.text}>
+                    {moment(dischargeDate).format("L")}
+                  </Box>
+                </Grid>
+              )}
+
+              <Grid
+                container
+                direction="row"
+                justify="space-evenly"
+                alignItems="center"
+              >
+                <Grid items className={classes.gridRow}>
+                  <Button
+                    className={classes.discharge}
+                    variant="contained"
+                    color="secondary"
+                  >
+                    DISCHARGE
+                  </Button>
+                </Grid>
               </Grid>
             </Grid>
           </Paper>

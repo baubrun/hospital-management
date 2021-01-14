@@ -1,5 +1,35 @@
 const db = require("../db");
 
+
+
+
+const admission = async (req, res) => {
+
+    const {
+        occupant_id,
+    } = req.body
+  
+
+    try {
+  
+      await db.query(
+        `UPDATE patients 
+        SET discharge = 
+        WHERE patient_id = $1
+        `,
+        [occupant_id]
+      );
+  
+      return res.status(200).json({success: true});
+    } catch (error) {
+      return res.status(500).json({
+        error: error.message
+      });
+    }
+  };
+
+
+
 const create = async (req, res) => {
     const {
         firstName,
@@ -10,10 +40,9 @@ const create = async (req, res) => {
         careLevel,
     } = req.body;
 
-
     const text = "INSERT INTO patients(first_name, last_name, insurance_number, discharge, medical_history, care_level)";
     const values = "VALUES($1, $2, $3, $4, $5, $6) ON CONFLICT (insurance_number) DO NOTHING";
-    const returning = "RETURNING patient_id, first_name, last_name, insurance_number, admission, discharge, medical_history";
+    const returning = "RETURNING patient_id, first_name, last_name, insurance_number, admission, discharge, medical_history, care_level";
 
     try {
         const patient = await db.query(`${text} ${values} ${returning}`, [
@@ -35,7 +64,32 @@ const create = async (req, res) => {
     }
 };
 
+const discharge = async (req, res) => {
 
+    const {
+        occupant_id,
+    } = req.body
+  
+
+    try {
+  
+      await db.query(
+        `UPDATE patients 
+        SET discharge = 
+        WHERE patient_id = $1
+        `,
+        [occupant_id]
+      );
+  
+      return res.status(200).json({success: true});
+    } catch (error) {
+      return res.status(500).json({
+        error: error.message
+      });
+    }
+  };
+  
+  
 
 const list = async (req, res) => {
     try {
@@ -102,6 +156,8 @@ const read = async (req, res) => {
 
 
 module.exports = {
+    admission,
+    discharge,
     create,
     list,
     listWaiting,
