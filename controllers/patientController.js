@@ -42,7 +42,7 @@ const discharge = async (req, res) => {
 
     const {
         occupant_id,
-        discharge,
+        dischargeDate,
     } = req.body
   
 
@@ -50,10 +50,10 @@ const discharge = async (req, res) => {
   
       await db.query(
         `UPDATE patients 
-        SET discharge = 
+        SET discharge = $2
         WHERE patient_id = $1
         `,
-        [occupant_id]
+        [occupant_id, dischargeDate]
       );
   
       return res.status(200).json({success: true});
@@ -109,7 +109,7 @@ const read = async (req, res) => {
     try {
         const patient = await db.query(
             `SELECT
-            first_name, last_name, care_level, admission, discharge, room_number
+            patient_id, first_name, last_name, care_level, admission, discharge, room_number
          FROM patients
          LEFT JOIN rooms 
              ON patients.patient_id = rooms.occupant_id

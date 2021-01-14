@@ -15,7 +15,11 @@ import TitleBar from "../TitleBar";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import { readPatient, patientState } from "../../redux/patientSlice";
+import {
+  readPatient,
+  patientState,
+  dischargePatient,
+} from "../../redux/patientSlice";
 import { roomDischarge } from "../../redux/roomSlice";
 
 import moment from "moment";
@@ -99,6 +103,7 @@ const defaultState = {
   first_name: "",
   last_name: "",
   medicalHistory: [],
+  patient_id: null,
   room_number: "",
 };
 
@@ -114,13 +119,15 @@ const SearchPatient = () => {
     if (patient) {
       setValues(patient);
       setAdmissionDate(patient.admission);
-      setDischargeDate(patient.discharge);
+      if (patient.discharge) {
+        setDischargeDate(patient.discharge);
+      }
     }
   }, [patient]);
 
   const handleSearch = (evt) => {
     evt.preventDefault();
-    if (!values.full_name) return
+    if (!values.full_name) return;
     const [last_name, first_name] = values.full_name.split(",");
     dispatch(
       readPatient({
@@ -138,6 +145,12 @@ const SearchPatient = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     dispatch(roomDischarge(values.room_number));
+    dispatch(
+      dischargePatient({
+        dischargeDate: moment().format("L"),
+        occupant_id: values.patient_id,
+      })
+    );
   };
 
   if (values)
@@ -192,10 +205,12 @@ const SearchPatient = () => {
                 <Box className={classes.text}>{values.last_name}</Box>
               </Grid>
 
-              <Grid item>
-                <Box className={classes.textLabel}>Room Number</Box>
-                <Box className={classes.text}>{values.room_number}</Box>
-              </Grid>
+              {values.room_number && (
+                <Grid item>
+                  <Box className={classes.textLabel}>Room Number</Box>
+                  <Box className={classes.text}>{values.room_number}</Box>
+                </Grid>
+              )}
             </Grid>
 
             <Grid
@@ -220,23 +235,25 @@ const SearchPatient = () => {
                 </Grid>
               )}
 
-              <Grid
-                container
-                direction="row"
-                justify="space-evenly"
-                alignItems="center"
-              >
-                <Grid items className={classes.gridRow}>
-                  <Button
-                    className={classes.discharge}
-                    variant="contained"
-                    color="secondary"
-                    type="submit"
-                  >
-                    DISCHARGE
-                  </Button>
+              {values.room_number && (
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <Grid items className={classes.gridRow}>
+                    <Button
+                      className={classes.discharge}
+                      variant="contained"
+                      color="secondary"
+                      type="submit"
+                    >
+                      DISCHARGE
+                    </Button>
+                  </Grid>
                 </Grid>
-              </Grid>
+              )}
             </Grid>
           </Paper>
         )}
