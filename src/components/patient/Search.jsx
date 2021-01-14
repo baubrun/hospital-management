@@ -24,6 +24,8 @@ import { roomDischarge } from "../../redux/roomSlice";
 
 import moment from "moment";
 
+import MessageDialog from "../MessageDialog"
+
 const useStyles = makeStyles((theme) => ({
   date: {
     fontWeight: "bold",
@@ -105,6 +107,7 @@ const defaultState = {
   medicalHistory: [],
   patient_id: null,
   room_number: "",
+  message: "",
 };
 
 const SearchPatient = () => {
@@ -114,6 +117,7 @@ const SearchPatient = () => {
   const [values, setValues] = useState(defaultState);
   const [admissionDate, setAdmissionDate] = useState(null);
   const [dischargeDate, setDischargeDate] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (patient) {
@@ -124,6 +128,21 @@ const SearchPatient = () => {
       }
     }
   }, [patient]);
+
+  const handleConfirm = () => {
+    dispatch(roomDischarge(values.room_number));
+    dispatch(
+      dischargePatient({
+        dischargeDate: moment().format("L"),
+        occupant_id: values.patient_id,
+      })
+    );
+    setValues(defaultState)
+    setAdmissionDate(null)
+    setDischargeDate(null)
+    setOpenDialog(false)
+  }
+
 
   const handleSearch = (evt) => {
     evt.preventDefault();
@@ -142,7 +161,7 @@ const SearchPatient = () => {
     setValues({ ...values, full_name: value });
   };
 
-  const handleSubmit = (evt) => {
+  const handleDischarge = (evt) => {
     evt.preventDefault();
     dispatch(roomDischarge(values.room_number));
     dispatch(
@@ -155,6 +174,7 @@ const SearchPatient = () => {
 
   if (values)
     return (
+      <>
       <Box className={classes.root}>
         <TitleBar text="search patient" />
         <Grid container direction="row" justify="center" alignItems="center">
@@ -185,8 +205,6 @@ const SearchPatient = () => {
         {admissionDate && (
           <Paper
             className={classes.patientInfo}
-            component="form"
-            onSubmit={handleSubmit}
           >
             <Grid
               container
@@ -247,7 +265,7 @@ const SearchPatient = () => {
                       className={classes.discharge}
                       variant="contained"
                       color="secondary"
-                      type="submit"
+                      onClick={() => setOpenDialog(true)}
                     >
                       DISCHARGE
                     </Button>
@@ -258,6 +276,17 @@ const SearchPatient = () => {
           </Paper>
         )}
       </Box>
+
+      <MessageDialog
+      cancelBtn={true} 
+      confirm={handleConfirm}
+      openDialog={openDialog}
+      message="Discharge this patient?"
+      setOpenDialog={setOpenDialog}
+      title="Discharge"
+      />
+
+      </>
     );
 };
 

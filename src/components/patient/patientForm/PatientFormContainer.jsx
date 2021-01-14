@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import Stepper from "@material-ui/core/Stepper";
@@ -13,6 +13,7 @@ import TitleBar from "../../TitleBar";
 import { getTrueKeys } from "../../../utils";
 
 import { createPatient } from "../../../redux/patientSlice";
+import MessageDialog from "../../MessageDialog";
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
@@ -39,7 +40,6 @@ const defaultState = {
   },
 };
 
-
 const steps = ["Patient Information", "Medical history", "Confirm"];
 
 const PatientFormContainer = () => {
@@ -47,6 +47,13 @@ const PatientFormContainer = () => {
   const classes = useStyles();
   const [values, setValues] = useState(defaultState);
   const [activeStep, setActiveStep] = useState(0);
+  const [openDialog, setOpenDialog] = useState(false);
+
+
+  useEffect(() => {
+   setOpenDialog(true)
+  }, [])
+
 
   const nextStep = () => {
     setActiveStep((prevState) => prevState + 1);
@@ -57,8 +64,8 @@ const PatientFormContainer = () => {
   };
 
   const resetStep = () => {
-    setActiveStep(0)
-  }
+    setActiveStep(0);
+  };
 
   const handleChange = (evt) => {
     const { value, name } = evt.target;
@@ -69,9 +76,9 @@ const PatientFormContainer = () => {
     const { checked, name } = evt.target;
     setValues({
       ...values,
-      medicalHistory: { 
-        ...values.medicalHistory, 
-        [name]: checked 
+      medicalHistory: {
+        ...values.medicalHistory,
+        [name]: checked,
       },
     });
   };
@@ -79,23 +86,34 @@ const PatientFormContainer = () => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-
     const formData = {
       careLevel: values.careLevel,
       discharge: values.discharge,
       insuranceNumber: values.insuranceNumber,
       firstName: values.firstName,
       lastName: values.lastName,
-      medicalHistory: getTrueKeys(values.medicalHistory)
-    
-    }
+      medicalHistory: getTrueKeys(values.medicalHistory),
+    };
     dispatch(createPatient(formData));
     setValues(defaultState);
-    resetStep()
+    resetStep();
+  };
+
+  const handleConfirm = () => {
+    setOpenDialog(false);
   };
 
   return (
     <>
+      <MessageDialog
+        cancelBtn={false}
+        confirm={handleConfirm}
+        openDialog={openDialog}
+        message="Enjoy the current functionality."
+        setOpenDialog={setOpenDialog}
+        title="APP UNDER CONSTRUCTION"
+      />
+
       <Grid item>
         <TitleBar text="patient information" />
       </Grid>

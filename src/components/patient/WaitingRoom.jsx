@@ -18,7 +18,6 @@ import Typography from "@material-ui/core/Typography";
 import { patientState, listWaitingPatients } from "../../redux/patientSlice";
 import { roomState, roomAdmission } from "../../redux/roomSlice";
 
-import MessageModal from "../../components/MessageModal";
 import ListComponent from "../../components/ListComponent";
 import clsx from "clsx";
 
@@ -55,7 +54,7 @@ const WaitingRoom = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { rooms } = useSelector(roomState);
-  const { waitingPatients, error } = useSelector(patientState);
+  const { waitingPatients } = useSelector(patientState);
   const [patients, setPatients] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const [selectedPatient, setSelectedPatient] = useState({});
@@ -108,7 +107,6 @@ const WaitingRoom = () => {
 
   return (
     <>
-      {error && <MessageModal />}
 
       <TitleBar text="waiting Room" />
 
@@ -170,6 +168,7 @@ const WaitingRoom = () => {
               size="large"
               variant="contained"
               type="submit"
+              disabled={!values.patient_id || !values.roomAssigned}
             >
               CONFIRM
             </Button>

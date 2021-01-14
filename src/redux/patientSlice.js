@@ -99,14 +99,6 @@ export const patientSlice = createSlice({
         loading: false,
         error: "",
         patient: {},
-        // "patient": {
-        //     "first_name": "Korella",
-        //     "last_name": "Charrett",
-        //     "care_level": 4,
-        //     "admission": "2020-12-02T05:00:00.000Z",
-        //     "discharge": null,
-        //     "room_number": 1
-        // },
         patients: [],
         waitingPatients: []
     },
