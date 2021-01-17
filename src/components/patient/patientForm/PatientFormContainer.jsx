@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Stepper from "@material-ui/core/Stepper";
@@ -13,7 +13,6 @@ import TitleBar from "../../TitleBar";
 import { getTrueKeys } from "../../../utils";
 
 import { createPatient } from "../../../redux/patientSlice";
-import MessageDialog from "../../MessageDialog";
 
 const useStyles = makeStyles((theme) => ({
   stepper: {
@@ -47,13 +46,6 @@ const PatientFormContainer = () => {
   const classes = useStyles();
   const [values, setValues] = useState(defaultState);
   const [activeStep, setActiveStep] = useState(0);
-  const [openDialog, setOpenDialog] = useState(false);
-
-
-  useEffect(() => {
-   setOpenDialog(true)
-  }, [])
-
 
   const nextStep = () => {
     setActiveStep((prevState) => prevState + 1);
@@ -99,21 +91,11 @@ const PatientFormContainer = () => {
     resetStep();
   };
 
-  const handleConfirm = () => {
-    setOpenDialog(false);
-  };
+
 
   return (
     <>
-      <MessageDialog
-        cancelBtn={false}
-        confirm={handleConfirm}
-        openDialog={openDialog}
-        message="Enjoy the current functionality."
-        setOpenDialog={setOpenDialog}
-        title="APP UNDER CONSTRUCTION"
-      />
-
+     
       <Grid item>
         <TitleBar text="patient information" />
       </Grid>

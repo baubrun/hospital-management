@@ -67,6 +67,7 @@ const WaitingRoom = () => {
   const getNextPatient = () => {
     // const nextPatientId = mh.poll().patient_id;
     const nextPatient = mh.poll()
+    // console.log('peek :>> ', mh.peek());
     console.log('nextPatientId :>> ', nextPatient);
     // setSelectedId(nextPatientId);
     // setValues({ ...values, patient_id: nextPatientId });

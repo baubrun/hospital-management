@@ -9,7 +9,7 @@ export const navItems = [
   {
     name: "New Patient",
     icon: <QueueIcon />,
-    url: "/",
+    url: "/newpatient",
   },
   {
     name: "Waiting Room",

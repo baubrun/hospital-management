@@ -5,10 +5,10 @@ class MaxHeap extends Heap {
   
     bubbleDown() {
         let index = 0
-        console.log('this.items[index].care_level', this.items[index].care_level)
-        console.log()
-        console.log('this.leftChild(index).care_level', this.leftChild(index) && this.leftChild(index).care_level)
-        console.log()
+        // console.log('this.items[index].care_level', this.items[index].care_level)
+        // console.log()
+        // console.log('this.leftChild(index).care_level', this.leftChild(index) && this.leftChild(index).care_level)
+        // console.log()
         while (
             this.leftChild(index) &&
             this.leftChild(index).care_level > this.items[index].care_level ||
@@ -19,7 +19,7 @@ class MaxHeap extends Heap {
             let biggerIndex = this.leftChildIndex(index)
             if (
                 this.rightChild(index) &&
-                this.rightChild(index) > this.items[biggerIndex]) {
+                this.rightChild(index).care_level > this.items[biggerIndex].care_level) {
                 biggerIndex = this.rightChildIndex(index)
             }
             this.swap(biggerIndex, index)
