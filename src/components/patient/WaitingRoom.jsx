@@ -20,6 +20,7 @@ import { roomState, roomAdmission } from "../../redux/roomSlice";
 
 import ListComponent from "../../components/ListComponent";
 import clsx from "clsx";
+import MaxHeap from "../../utils/heap/maxHeap";
 
 const useStyles = makeStyles((theme) => ({
   category: {
@@ -47,9 +48,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 const WaitingRoom = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -64,10 +62,14 @@ const WaitingRoom = () => {
     roomAssigned: "",
   });
 
+  const mh = new MaxHeap();
 
-  const handleSelected = (id) => {
-    setSelectedId(id);
-    setValues({...values, patient_id: id})
+  const getNextPatient = () => {
+    // const nextPatientId = mh.poll().patient_id;
+    const nextPatient = mh.poll()
+    console.log('nextPatientId :>> ', nextPatient);
+    // setSelectedId(nextPatientId);
+    // setValues({ ...values, patient_id: nextPatientId });
   };
 
   useEffect(() => {
@@ -75,9 +77,14 @@ const WaitingRoom = () => {
   }, []);
 
   useEffect(() => {
-    setPatients(waitingPatients)
- }, [waitingPatients]);
+    setPatients(waitingPatients);
+  }, [waitingPatients]);
 
+  useEffect(() => {
+    if (waitingPatients) {
+      mh.add(waitingPatients);
+    }
+  });
 
   useEffect(() => {
     if (selectedId) {
@@ -85,7 +92,6 @@ const WaitingRoom = () => {
       setSelectedPatient(found);
     }
   }, [selectedId]);
-
 
   const handleRoom = (evt) => {
     const { value } = evt.target;
@@ -102,38 +108,37 @@ const WaitingRoom = () => {
     };
     dispatch(roomAdmission(data));
     dispatch(listWaitingPatients());
-    setSelectedId(null)
+    setSelectedId(null);
   };
 
   return (
     <>
-
       <TitleBar text="waiting Room" />
 
       <form onSubmit={handleSubmit}>
-      <Grid
-        container
-        direction="row"
-        justify="space-evenly"
-        alignItems="center"
-      >
-        <Grid item>
-          <Button
-            className={clsx([classes.category, classes.viewBtn])}
-            color="secondary"
-            size="large"
-            variant="contained"
-            onClick={() => setViewOccupancy(!viewOccupancy)}
-          >
-            view Occupancies
-          </Button>
-        </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="center"
+        >
+          <Grid item>
+            <Button
+              className={clsx([classes.category, classes.viewBtn])}
+              color="secondary"
+              size="large"
+              variant="contained"
+              onClick={() => setViewOccupancy(!viewOccupancy)}
+            >
+              view Occupancies
+            </Button>
+          </Grid>
 
-        <Grid item>
-          <Typography variant="h5" className={classes.category}>
-            assign patient to room:
-          </Typography>
-        </Grid>
+          <Grid item>
+            <Typography variant="h5" className={classes.category}>
+              assign patient to room:
+            </Typography>
+          </Grid>
 
           <Grid item>
             <FormControl variant="outlined" className={classes.roomSelect}>
@@ -173,20 +178,38 @@ const WaitingRoom = () => {
               CONFIRM
             </Button>
           </Grid>
-       
-      </Grid>
-
-      <Paper className={classes.root}>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Grid item xs={2}>
-            <ListComponent onClickItem={handleSelected} patients={patients} />
-          </Grid>
-
-          <Grid item xs={10}>
-             <Patient patient={selectedPatient} selectedId={selectedId}/>
-          </Grid>
         </Grid>
-      </Paper>
+
+        <Paper className={classes.root}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item xs={2}>
+              <ListComponent patients={patients} selectedId={selectedId} />
+            </Grid>
+
+            <Grid item xs={10}>
+              <Grid
+                container
+                direction="column"
+                justify="center"
+                alignItems="center"
+              >
+                <Grid item>
+                  <Button
+                    className={clsx([classes.category, classes.viewBtn])}
+                    color="primary"
+                    size="large"
+                    variant="contained"
+                    onClick={() => getNextPatient()}
+                  >
+                    Next Patient
+                  </Button>
+                </Grid>
+
+                <Patient patient={selectedPatient} selectedId={selectedId} />
+              </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
       </form>
 
       <Modal
