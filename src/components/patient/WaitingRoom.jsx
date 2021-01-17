@@ -105,9 +105,9 @@ const WaitingRoom = () => {
       occupant_id: values.patient_id,
     };
     dispatch(roomAdmission(data));
-    dispatch(listWaitingPatients());
     setSelectedId(null);
     setValues({patient_id: null, roomAssigned: ""})
+    dispatch(listWaitingPatients());
   };
 
   return (
@@ -196,7 +196,7 @@ const WaitingRoom = () => {
                   <Button
                     className={clsx([classes.category, classes.viewBtn])}
                     color="primary"
-                    disabled={patients.length < 1}
+                    disabled={values.patient_id}
                     size="large"
                     variant="contained"
                     onClick={() => getNextPatient()}
