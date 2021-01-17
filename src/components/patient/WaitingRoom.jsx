@@ -65,12 +65,9 @@ const WaitingRoom = () => {
   const mh = new MaxHeap();
 
   const getNextPatient = () => {
-    // const nextPatientId = mh.poll().patient_id;
     const nextPatient = mh.poll()
-    // console.log('peek :>> ', mh.peek());
-    console.log('nextPatientId :>> ', nextPatient);
-    // setSelectedId(nextPatientId);
-    // setValues({ ...values, patient_id: nextPatientId });
+    setSelectedId(nextPatient.patient_id);
+    setValues({ ...values, patient_id: nextPatient.patient_id });
   };
 
   useEffect(() => {
@@ -110,6 +107,7 @@ const WaitingRoom = () => {
     dispatch(roomAdmission(data));
     dispatch(listWaitingPatients());
     setSelectedId(null);
+    setValues({patient_id: null, roomAssigned: ""})
   };
 
   return (
@@ -198,6 +196,7 @@ const WaitingRoom = () => {
                   <Button
                     className={clsx([classes.category, classes.viewBtn])}
                     color="primary"
+                    disabled={patients.length < 1}
                     size="large"
                     variant="contained"
                     onClick={() => getNextPatient()}

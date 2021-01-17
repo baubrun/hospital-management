@@ -42,6 +42,10 @@ class Heap {
         return this.items.length
     }
 
+    isEmpty(){
+        return this.items.length < 1
+    }
+
 }
 
 

@@ -73,6 +73,7 @@ const Rooms = () => {
                 .map((room, idx) => {
                   return (
                     <CustomToolTip
+                    key={idx}
                       title={
                         room.occupied
                           ? `${room.first_name} ${room.last_name}`

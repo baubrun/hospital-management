@@ -5,10 +5,6 @@ class MaxHeap extends Heap {
   
     bubbleDown() {
         let index = 0
-        // console.log('this.items[index].care_level', this.items[index].care_level)
-        // console.log()
-        // console.log('this.leftChild(index).care_level', this.leftChild(index) && this.leftChild(index).care_level)
-        // console.log()
         while (
             this.leftChild(index) &&
             this.leftChild(index).care_level > this.items[index].care_level ||
@@ -48,6 +44,7 @@ class MaxHeap extends Heap {
     }
 
     poll() {
+        if (this.isEmpty()) return
         let item = this.items[0]
         this.items[0] = this.items[this.items.length - 1]
         this.items.pop()
